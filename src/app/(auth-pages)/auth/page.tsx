@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import styles from "@styles/Auth.module.css";
 import SignIn from "@/components/SignIn";
 import SignUp from "@/components/SignUp";
+import styles from "@styles/Auth.module.css";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
