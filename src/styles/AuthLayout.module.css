@@ -27,7 +27,7 @@
   top: calc(calc(100dvh - 712px) / 2);
   bottom: calc(calc(100dvh - 712px) / 2);
   left: calc(calc(100dvw - 526px) / 2);
-  background-color: #ffffff;
+  background-color: var(--white);
   box-shadow: 0px 8px 28px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }

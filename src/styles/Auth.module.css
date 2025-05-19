@@ -24,7 +24,7 @@
   bottom: 0;
   left: 0;
   z-index: 2;
-  background-color: #ffffff;
+  background-color: var(--white);
   box-shadow: 0px 8px 28px 0px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease-in-out;
   display: flex;
