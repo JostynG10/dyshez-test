@@ -1,0 +1,23 @@
+.container {
+  width: 400px;
+  height: 100%;
+  padding: 2.5rem 2.5rem 3.1875rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.text {
+  font-family: var(--font-hauora);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5625rem;
+  text-align: center;
+}
+
+.icon {
+  font-size: 1rem;
+  color: var(--pink-700);
+}
