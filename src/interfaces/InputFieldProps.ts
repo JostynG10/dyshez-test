@@ -1,7 +1,8 @@
-export default interface InputFieldProps {
-  icon?: "at" | "lock" | "mobile" | "email" | "user" | "website" | "phone";
-  type: "text" | "email" | "password" | "phone";
-  placeholder?: string;
+import React from "react";
+
+export default interface InputFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  icon?: string;
   errorMessage?: string;
-  required: boolean;
+  required?: boolean;
 }
