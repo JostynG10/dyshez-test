@@ -1,4 +1,4 @@
-export default interface CheckBoxProps {
-  checked?: boolean;
+export default interface CheckboxProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
