@@ -5,12 +5,15 @@ import type { FieldErrors } from "react-hook-form";
 import { useForm, Controller } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { signUpAction } from "@actions/authActions";
+import { useRouter } from "next/navigation";
 import InputField from "./InputField";
 import Checkbox from "./Checkbox";
 import SignUpFormData from "@interfaces/SignUpFormData";
 import styles from "@styles/SignUp.module.css";
 
 export default function SignUp() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -22,14 +25,33 @@ export default function SignUp() {
   const passwordValue = watch("password");
   const confirmPasswordValue = watch("confirmPassword");
 
-  const onSubmit = (data: SignUpFormData) => {
-    console.log(data);
+  const onSubmit = async (data: SignUpFormData) => {
+    const toastId = toast.loading("Cargando...");
+
+    const { success, error } = await signUpAction(data);
+
+    if (error) {
+      toast.update(toastId, {
+        render: error,
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
+    }
+    if (success) {
+      toast.update(toastId, {
+        render: "Registro exitoso, revisa tu correo para verificar tu cuenta.",
+        type: "success",
+        isLoading: false,
+        autoClose: 5000,
+      });
+      router.replace("?mode=signin");
+    }
   };
 
   const onError = (errors: FieldErrors<SignUpFormData>) => {
     const firstError = Object.values(errors)[0];
     if (firstError) {
-      console.log(firstError);
       toast.error(firstError.message);
     }
   };

@@ -1,4 +1,4 @@
-export default interface SignInFormData {
+export default interface SignUpFormData {
   name: string;
   lastName: string;
   mobile: string;
