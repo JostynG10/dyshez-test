@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
 import InputField from "./InputField";
 import Checkbox from "./Checkbox";
-import SignUpFormData from "@/interfaces/SignUpFormData";
+import SignUpFormData from "@interfaces/SignUpFormData";
 import styles from "@styles/SignUp.module.css";
 
 export default function SignUp() {
@@ -18,7 +18,6 @@ export default function SignUp() {
   const confirmPasswordValue = watch("confirmPassword");
 
   const onSubmit = (data: SignUpFormData) => {
-    // Aquí procesas el registro
     console.log(data);
   };
 
@@ -39,16 +38,16 @@ export default function SignUp() {
           type="text"
           icon="user"
           placeholder="Nombre(s)"
-          {...register("name", { required: "El nombre es obligatorio" })}
-          errorMessage={errors.name?.message}
+          {...register("name", { required: true })}
+          hasError={!!errors.name}
         />
         <InputField
           required
           type="text"
           icon="user"
           placeholder="Apellidos"
-          {...register("lastName", { required: "El apellido es obligatorio" })}
-          errorMessage={errors.lastName?.message}
+          {...register("lastName", { required: true })}
+          hasError={!!errors.lastName}
         />
       </div>
 
@@ -58,8 +57,8 @@ export default function SignUp() {
           type="phone"
           icon="mobile"
           placeholder="123 456 7890"
-          {...register("mobile", { required: "El celular es obligatorio" })}
-          errorMessage={errors.mobile?.message}
+          {...register("mobile", { required: true })}
+          hasError={!!errors.mobile}
         />
         <InputField
           type="phone"
@@ -82,13 +81,13 @@ export default function SignUp() {
           icon="email"
           placeholder="Email"
           {...register("email", {
-            required: "El email es obligatorio",
+            required: true,
             pattern: {
               value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
               message: "Email inválido",
             },
           })}
-          errorMessage={errors.email?.message}
+          hasError={!!errors.email}
         />
       </div>
 
@@ -98,26 +97,27 @@ export default function SignUp() {
           type="password"
           placeholder="Contraseña"
           {...register("password", {
-            required: "La contraseña es obligatoria",
-            validate: (value) =>
-              value === confirmPasswordValue || "Las contraseñas no coinciden",
+            required: true,
+            validate: (value) => value === confirmPasswordValue,
           })}
-          errorMessage={errors.password?.message}
+          hasError={!!errors.password}
         />
         <InputField
           required
           type="password"
           placeholder="Verifica contraseña"
           {...register("confirmPassword", {
-            required: "Debes confirmar tu contraseña",
-            validate: (value) =>
-              value === passwordValue || "Las contraseñas no coinciden",
+            required: true,
+            validate: (value) => value === passwordValue,
           })}
-          errorMessage={errors.confirmPassword?.message}
+          hasError={!!errors.confirmPassword}
         />
       </div>
 
-      <Checkbox label="Acepto los términos y condiciones" />
+      <Checkbox
+        label="Acepto los términos y condiciones"
+        {...register("terms", { required: true })}
+      />
 
       <footer className={styles.footer}>
         <button

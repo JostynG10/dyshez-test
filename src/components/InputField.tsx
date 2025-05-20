@@ -6,19 +6,12 @@ import { HiOutlineMail } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import { LiaPhoneSolid } from "react-icons/lia";
 import { TbWorld } from "react-icons/tb";
-import InputFieldProps from "@/interfaces/InputFieldProps";
+import InputFieldProps from "@interfaces/InputFieldProps";
 import styles from "@styles/InputField.module.css";
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (
-    {
-      icon,
-      type,
-      placeholder = "Escribe aquí.",
-      errorMessage,
-      required,
-      ...props
-    },
+    { icon, type, placeholder = "Escribe aquí.", hasError, required, ...props },
     ref
   ) => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -30,9 +23,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     return (
       <section className={styles.container}>
         <div
-          className={`${styles.wrapper} ${
-            errorMessage ? styles.wrapperError : ""
-          }`}
+          className={`${styles.wrapper} ${hasError ? styles.wrapperError : ""}`}
         >
           {icon
             ? (icon === "at" && <FaAt className={styles.icon} />) ||
@@ -46,12 +37,14 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
               (type === "password" && <FiLock className={styles.icon} />) ||
               (type === "phone" && <CiMobile1 className={styles.icon} />)}
 
+          {type === "phone" && <span className={styles.countryCode}>+52</span>}
+
           <input
-            {...props}
             ref={ref}
             type={type === "password" && showPassword ? "text" : type}
             placeholder={required ? `${placeholder} *` : placeholder}
             className={styles.input}
+            {...props}
           />
 
           {type === "password" && (
@@ -69,10 +62,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             </button>
           )}
         </div>
-
-        {errorMessage && (
-          <span className={styles.errorMessage}>{errorMessage}</span>
-        )}
       </section>
     );
   }

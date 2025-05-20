@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 import InputField from "./InputField";
-import SignInFormData from "@/interfaces/SignInFormData";
+import SignInFormData from "@interfaces/SignInFormData";
 import styles from "@styles/SignIn.module.css";
 
 export default function SignIn() {
@@ -35,18 +35,18 @@ export default function SignIn() {
             type="text"
             placeholder="Correo o teléfono"
             {...register("user", {
-              required: "Este campo es obligatorio",
+              required: true,
             })}
-            errorMessage={errors.user?.message}
+            hasError={!!errors.user}
           />
           <InputField
             required
             type="password"
             placeholder="Contraseña"
             {...register("password", {
-              required: "Este campo es obligatorio",
+              required: true,
             })}
-            errorMessage={errors.password?.message}
+            hasError={!!errors.password}
           />
         </div>
 
