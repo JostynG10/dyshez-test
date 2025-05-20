@@ -1,6 +1,10 @@
+"use client";
+
 import React from "react";
-import { useForm } from "react-hook-form";
+import type { FieldErrors } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
+import { toast } from "react-toastify";
 import InputField from "./InputField";
 import Checkbox from "./Checkbox";
 import SignUpFormData from "@interfaces/SignUpFormData";
@@ -11,6 +15,7 @@ export default function SignUp() {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormData>();
 
@@ -21,10 +26,18 @@ export default function SignUp() {
     console.log(data);
   };
 
+  const onError = (errors: FieldErrors<SignUpFormData>) => {
+    const firstError = Object.values(errors)[0];
+    if (firstError) {
+      console.log(firstError);
+      toast.error(firstError.message);
+    }
+  };
+
   return (
     <form
       className={styles.container}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
       noValidate
     >
       <p className={styles.text}>
@@ -38,7 +51,9 @@ export default function SignUp() {
           type="text"
           icon="user"
           placeholder="Nombre(s)"
-          {...register("name", { required: true })}
+          {...register("name", {
+            required: "Por favor completa todos los campos requeridos.",
+          })}
           hasError={!!errors.name}
         />
         <InputField
@@ -46,7 +61,9 @@ export default function SignUp() {
           type="text"
           icon="user"
           placeholder="Apellidos"
-          {...register("lastName", { required: true })}
+          {...register("lastName", {
+            required: "Por favor completa todos los campos requeridos.",
+          })}
           hasError={!!errors.lastName}
         />
       </div>
@@ -57,7 +74,9 @@ export default function SignUp() {
           type="phone"
           icon="mobile"
           placeholder="123 456 7890"
-          {...register("mobile", { required: true })}
+          {...register("mobile", {
+            required: "Por favor completa todos los campos requeridos.",
+          })}
           hasError={!!errors.mobile}
         />
         <InputField
@@ -81,10 +100,10 @@ export default function SignUp() {
           icon="email"
           placeholder="Email"
           {...register("email", {
-            required: true,
+            required: "Por favor completa todos los campos requeridos.",
             pattern: {
               value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-              message: "Email inválido",
+              message: "El correo es inválido.",
             },
           })}
           hasError={!!errors.email}
@@ -97,8 +116,9 @@ export default function SignUp() {
           type="password"
           placeholder="Contraseña"
           {...register("password", {
-            required: true,
-            validate: (value) => value === confirmPasswordValue,
+            required: "Por favor completa todos los campos requeridos.",
+            validate: (value) =>
+              value === confirmPasswordValue || "Las contraseñas no coinciden.",
           })}
           hasError={!!errors.password}
         />
@@ -107,16 +127,30 @@ export default function SignUp() {
           type="password"
           placeholder="Verifica contraseña"
           {...register("confirmPassword", {
-            required: true,
-            validate: (value) => value === passwordValue,
+            required: "Por favor completa todos los campos requeridos.",
+            validate: (value) =>
+              value === passwordValue || "Las contraseñas no coinciden.",
           })}
           hasError={!!errors.confirmPassword}
         />
       </div>
 
-      <Checkbox
-        label="Acepto los términos y condiciones"
-        {...register("terms", { required: true })}
+      <Controller
+        name="terms"
+        control={control}
+        rules={{
+          required: "Por favor acepta los términos y condiciones.",
+        }}
+        render={({ field }) => (
+          <Checkbox
+            label="Acepto los términos y condiciones"
+            checked={!!field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            name={field.name}
+            ref={field.ref}
+          />
+        )}
       />
 
       <footer className={styles.footer}>
