@@ -2,12 +2,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
 }
 
-.button {
-  display: grid;
-  place-items: center;
-  cursor: pointer;
+.input {
+  display: none;
 }
 
 .icon {
@@ -26,12 +26,4 @@
   font-weight: 700;
   line-height: 1.0625rem;
   color: var(--gray-800);
-}
-
-.input {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
 }
