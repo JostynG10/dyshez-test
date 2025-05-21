@@ -5,6 +5,7 @@ import type { FieldErrors } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { signInAction } from "@/actions/authActions";
 import Image from "next/image";
 import InputField from "./InputField";
 import SignInFormData from "@interfaces/SignInFormData";
@@ -17,8 +18,18 @@ export default function SignIn() {
     formState: { errors, isSubmitting },
   } = useForm<SignInFormData>();
 
-  const onSubmit = (data: SignInFormData) => {
-    console.log(data);
+  const onSubmit = async (data: SignInFormData) => {
+    const toastId = toast.loading("Cargando...");
+    const { error } = await signInAction(data);
+
+    if (error) {
+      toast.update(toastId, {
+        render: error,
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
+    }
   };
 
   const onError = (errors: FieldErrors<SignInFormData>) => {

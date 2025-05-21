@@ -27,7 +27,6 @@ export default function SignUp() {
 
   const onSubmit = async (data: SignUpFormData) => {
     const toastId = toast.loading("Cargando...");
-
     const { success, error } = await signUpAction(data);
 
     if (error) {
