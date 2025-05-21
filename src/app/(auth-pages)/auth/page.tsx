@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import SignIn from "@/components/SignIn";
@@ -10,23 +10,18 @@ import styles from "@styles/Auth.module.css";
 export default function Auth() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [isLogin, setIsLogin] = useState(true);
+
+  const modeParam = searchParams.get("mode");
+  const isLogin = modeParam !== "signup";
 
   useEffect(() => {
-    const modeParam = searchParams.get("mode");
-    if (modeParam === "signup") {
-      setIsLogin(false);
-    } else {
-      setIsLogin(true);
-      if (modeParam === null) {
-        router.replace("?mode=signin");
-      }
+    if (modeParam === null) {
+      router.replace("?mode=signin");
     }
     // eslint-disable-next-line
-  }, [searchParams]);
+  }, [modeParam]);
 
   const handleRoute = (isLogin: boolean) => {
-    setIsLogin(isLogin);
     router.replace(`?mode=${isLogin ? "signin" : "signup"}`);
   };
 
