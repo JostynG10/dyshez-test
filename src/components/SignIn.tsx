@@ -5,10 +5,10 @@ import type { FieldErrors } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
 import { toast } from "react-toastify";
-import { signInAction } from "@/actions/authActions";
-import Image from "next/image";
+import { signIn } from "@app/(auth-pages)/auth/actions";
 import InputField from "./InputField";
 import SignInFormData from "@interfaces/SignInFormData";
+import SocialLogin from "@components/SocialLogin";
 import styles from "@styles/SignIn.module.css";
 
 export default function SignIn() {
@@ -20,7 +20,7 @@ export default function SignIn() {
 
   const onSubmit = async (data: SignInFormData) => {
     const toastId = toast.loading("Cargando...");
-    const { error } = await signInAction(data);
+    const { error } = await signIn(data);
 
     if (error) {
       toast.update(toastId, {
@@ -88,24 +88,7 @@ export default function SignIn() {
         </div>
       </div>
 
-      <div className={styles.socialLogin}>
-        <button className={styles.socialButton} type="button">
-          <Image
-            width={24}
-            height={24}
-            src="/images/google-logo.svg"
-            alt="Logo de red social."
-          />
-        </button>
-        <button className={styles.socialButton} type="button">
-          <Image
-            width={24}
-            height={24}
-            src="/images/facebook-logo.svg"
-            alt="Logo de red social."
-          />
-        </button>
-      </div>
+      <SocialLogin />
     </form>
   );
 }

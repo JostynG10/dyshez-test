@@ -5,8 +5,8 @@ import type { FieldErrors } from "react-hook-form";
 import { useForm, Controller } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
 import { toast } from "react-toastify";
-import { signUpAction } from "@actions/authActions";
 import { useRouter } from "next/navigation";
+import { signUp } from "@app/(auth-pages)/auth/actions";
 import InputField from "./InputField";
 import Checkbox from "./Checkbox";
 import SignUpFormData from "@interfaces/SignUpFormData";
@@ -27,7 +27,7 @@ export default function SignUp() {
 
   const onSubmit = async (data: SignUpFormData) => {
     const toastId = toast.loading("Cargando...");
-    const { success, error } = await signUpAction(data);
+    const { success, error } = await signUp(data);
 
     if (error) {
       toast.update(toastId, {

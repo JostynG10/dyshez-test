@@ -1,12 +1,9 @@
-import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
 
-export const updateSession = async (request: NextRequest) => {
-  // Create an unmodified response
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
+export async function updateSession(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({
+    request,
   });
 
   const supabase = createServerClient(
@@ -18,36 +15,68 @@ export const updateSession = async (request: NextRequest) => {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
+          cookiesToSet.forEach(({ name, value /*, options*/ }) =>
             request.cookies.set(name, value)
           );
-          response = NextResponse.next({
+          supabaseResponse = NextResponse.next({
             request,
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options)
           );
         },
       },
     }
   );
 
-  // This will refresh session if expired - required for Server Components
-  // https://supabase.com/docs/guides/auth/server-side/nextjs
-  const user = await supabase.auth.getUser();
+  // Do not run code between createServerClient and
+  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
+  // issues with users being randomly logged out.
 
-  // protected routes
-  if (request.nextUrl.pathname.startsWith("/home") && user.error) {
-    return NextResponse.redirect(new URL("/auth?mode=signin", request.url));
+  // IMPORTANT: DO NOT REMOVE auth.getUser()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const url = request.nextUrl.clone();
+
+  if (request.nextUrl.pathname === "/") {
+    if (user) {
+      // user is logged in, redirect to the home page
+      url.pathname = "/home";
+      url.search = "";
+    } else {
+      // no user, potentially respond by redirecting the user to the login page
+      url.pathname = "/auth";
+      url.search = "?mode=signin";
+    }
+    return NextResponse.redirect(url);
+  }
+  if (!user && !request.nextUrl.pathname.startsWith("/auth")) {
+    // no user, potentially respond by redirecting the user to the login page
+    url.pathname = "/auth";
+    url.search = "?mode=signin";
+    return NextResponse.redirect(url);
+  }
+  if (user && request.nextUrl.pathname.startsWith("/auth")) {
+    // user is logged in, redirect to the home page
+    url.pathname = "/home";
+    url.search = "";
+    return NextResponse.redirect(url);
   }
 
-  if (
-    (request.nextUrl.pathname === "/" ||
-      request.nextUrl.pathname.startsWith("/auth")) &&
-    !user.error
-  ) {
-    return NextResponse.redirect(new URL("/home", request.url));
-  }
+  // IMPORTANT: You *must* return the supabaseResponse object as it is.
+  // If you're creating a new response object with NextResponse.next() make sure to:
+  // 1. Pass the request in it, like so:
+  //    const myNewResponse = NextResponse.next({ request })
+  // 2. Copy over the cookies, like so:
+  //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
+  // 3. Change the myNewResponse object to fit your needs, but avoid changing
+  //    the cookies!
+  // 4. Finally:
+  //    return myNewResponse
+  // If this is not done, you may be causing the browser and server to go out
+  // of sync and terminate the user's session prematurely!
 
-  return response;
-};
+  return supabaseResponse;
+}
