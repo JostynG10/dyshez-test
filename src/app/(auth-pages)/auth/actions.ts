@@ -72,7 +72,7 @@ export const signIn = async (formData: SignInFormData) => {
   return redirect("home");
 };
 
-export const signInWithOAuth = async (provider: "google" | "facebook") => {
+export const signInWithOAuth = async (provider: "google" | "github") => {
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
