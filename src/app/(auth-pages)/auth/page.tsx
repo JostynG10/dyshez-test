@@ -1,68 +1,20 @@
-"use client";
+import React, { Suspense } from "react";
+import AuthLoading from "@/components/AuthLoading";
+import AuthPage from "@/components/AuthPage";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import SignIn from "@/components/SignIn";
-import SignUp from "@/components/SignUp";
-import styles from "@styles/Auth.module.css";
-
+/**
+ * The Auth component render the authentication page.
+ * It uses React's Suspense to handle loading states.
+ */
 export default function Auth() {
-  const [isLogin, setIsLogin] = useState(true);
-
+  /**
+   * the Suspense is necessary because AuthPage uses searchParams, which can
+   * cause issues if not handled asynchronously. Suspense ensures that
+   * AuthLoading is shown while AuthPage is loading.
+   */
   return (
-    <section className={styles.container}>
-      <div className={styles.imageBox}>
-        <Image
-          className={styles.image}
-          src="/images/login-background.svg"
-          alt="Imagen de fondo."
-          fill
-        />
-      </div>
-
-      <div
-        className={`${styles.content} ${
-          isLogin ? styles.contentLogin : styles.contentRegister
-        }`}
-      >
-        <header className={styles.header}>
-          <div className={styles.buttonsBox}>
-            <button
-              onClick={() => setIsLogin(true)}
-              className={`${styles.authButton} ${
-                isLogin ? styles.authButtonActive : ""
-              }`}
-              type="button"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => setIsLogin(false)}
-              className={`${styles.authButton} ${
-                !isLogin ? styles.authButtonActive : ""
-              }`}
-              type="button"
-            >
-              Register
-            </button>
-          </div>
-
-          <div
-            className={`${styles.line} ${
-              isLogin ? styles.lineLogin : styles.lineRegister
-            }`}
-          ></div>
-        </header>
-
-        <div
-          className={`${styles.wrapper} ${
-            isLogin ? styles.wrapperLogin : styles.wrapperRegister
-          }`}
-        >
-          <SignIn />
-          <SignUp />
-        </div>
-      </div>
-    </section>
+    <Suspense fallback={<AuthLoading />}>
+      <AuthPage />
+    </Suspense>
   );
 }

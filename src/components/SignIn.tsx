@@ -1,39 +1,25 @@
 "use client";
 
 import React from "react";
-import type { FieldErrors } from "react-hook-form";
-import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
-import { toast } from "react-toastify";
-import Image from "next/image";
+import { useSignInForm } from "@hooks/useSignInForm";
 import InputField from "./InputField";
-import SignInFormData from "@interfaces/SignInFormData";
+import SocialLogin from "@components/SocialLogin";
 import styles from "@styles/SignIn.module.css";
 
+/**
+ * SignIn component renders the login form for existing users.
+ * Handles form validation and submission using useSignInForm hook.
+ */
 export default function SignIn() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignInFormData>();
-
-  const onSubmit = (data: SignInFormData) => {
-    console.log(data);
-  };
-
-  const onError = (errors: FieldErrors<SignInFormData>) => {
-    const firstError = Object.values(errors)[0];
-    if (firstError) {
-      toast.error(firstError.message);
-    }
-  };
+  } = useSignInForm();
 
   return (
-    <form
-      className={styles.container}
-      onSubmit={handleSubmit(onSubmit, onError)}
-      noValidate
-    >
+    <form className={styles.container} onSubmit={handleSubmit()} noValidate>
       <p className={styles.text}>
         Ingresa con tu correo electrónico o tu número de teléfono
       </p>
@@ -77,24 +63,7 @@ export default function SignIn() {
         </div>
       </div>
 
-      <div className={styles.socialLogin}>
-        <button className={styles.socialButton} type="button">
-          <Image
-            width={24}
-            height={24}
-            src="/images/google-logo.svg"
-            alt="Logo de red social."
-          />
-        </button>
-        <button className={styles.socialButton} type="button">
-          <Image
-            width={24}
-            height={24}
-            src="/images/facebook-logo.svg"
-            alt="Logo de red social."
-          />
-        </button>
-      </div>
+      <SocialLogin />
     </form>
   );
 }

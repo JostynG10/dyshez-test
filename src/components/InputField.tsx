@@ -6,9 +6,10 @@ import { HiOutlineMail } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import { LiaPhoneSolid } from "react-icons/lia";
 import { TbWorld } from "react-icons/tb";
-import InputFieldProps from "@interfaces/InputFieldProps";
+import type InputFieldProps from "@interfaces/InputFieldProps";
 import styles from "@styles/InputField.module.css";
 
+// Custom InputField component using forwardRef for React Hook Form support
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (
     { icon, type, placeholder = "Escribe aquí.", hasError, required, ...props },
@@ -25,6 +26,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         <div
           className={`${styles.wrapper} ${hasError ? styles.wrapperError : ""}`}
         >
+          {/* Render icon based on icon prop or input type */}
           {icon
             ? (icon === "at" && <FaAt className={styles.icon} />) ||
               (icon === "lock" && <FiLock className={styles.icon} />) ||
@@ -37,6 +39,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
               (type === "password" && <FiLock className={styles.icon} />) ||
               (type === "phone" && <CiMobile1 className={styles.icon} />)}
 
+          {/* Show country code for phone input */}
           {type === "phone" && <span className={styles.countryCode}>+52</span>}
 
           <input
@@ -47,12 +50,13 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             {...props}
           />
 
+          {/* Show/hide password button for password fields */}
           {type === "password" && (
             <button
               onClick={handlePasswordVisibility}
               className={styles.eyeButton}
               type="button"
-              tabIndex={-1}
+              tabIndex={-1} // Prevents tab focus on the eye button
             >
               {showPassword ? (
                 <FaRegEyeSlash className={styles.eyeIcon} />

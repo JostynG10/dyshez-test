@@ -1,0 +1,15 @@
+.socialLogin {
+  display: flex;
+  justify-content: center;
+  gap: 1.125rem;
+}
+
+.socialButton {
+  width: 102px;
+  height: 52px;
+  padding: 0.875rem 1.5rem;
+  background-color: var(--gray-300);
+  border-radius: 6.25rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}

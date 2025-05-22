@@ -1,8 +1,8 @@
-export default interface SignInFormData {
-  name: string;
+export default interface SignUpFormData {
+  firstName: string;
   lastName: string;
-  mobile: string;
-  phone?: string;
+  phone: string;
+  secondaryPhone?: string;
   website?: string;
   email: string;
   password: string;
