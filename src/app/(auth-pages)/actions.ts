@@ -72,10 +72,10 @@ export const signUp = async (formData: SignUpFormData) => {
  * redirects to the home page.
  */
 export const signIn = async (formData: SignInFormData) => {
-  const { user, password } = formData;
+  const { email, password } = formData;
   const supabase = await createClient();
 
-  if (!user || !password) {
+  if (!email || !password) {
     return {
       success: false,
       error: "Por favor completa todos los campos requeridos.",
@@ -83,7 +83,7 @@ export const signIn = async (formData: SignInFormData) => {
   }
 
   const { error } = await supabase.auth.signInWithPassword({
-    email: user,
+    email: email,
     password,
   });
 
@@ -138,4 +138,87 @@ export const signInWithOAuth = async (provider: "google" | "github") => {
   }
 
   return redirect(data.url);
+};
+
+/**
+ * Reset password for a user
+ * @param email - The email address of the user
+ * @returns - An object containing success status and error message if any
+ * @description - Sends a password reset email to the user. If successful,
+ * returns a success message.
+ */
+export const resetPassword = async (email: string) => {
+  const supabase = await createClient();
+  const origin = (await headers()).get("origin");
+
+  if (!email) {
+    return {
+      success: false,
+      error: "Por favor ingrese su correo electrónico.",
+    };
+  }
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/password/reset`,
+  });
+
+  if (error) {
+    // Define error messages for specific error codes
+    // Note: The error codes should be replaced with actual Supabase errors
+    const errorCodeMessages = {
+      invalid_email: "El correo electrónico es inválido.",
+    } as const;
+
+    const message =
+      getSupabaseErrorMessage(error, errorCodeMessages) ||
+      "Ocurrió un error al enviar el correo electrónico.";
+    return { success: false, error: message };
+  }
+
+  return { success: true };
+};
+
+/**
+ * Update user password
+ * @param password - The new password for the user
+ * @param confirmPassword - The confirmation of the new password
+ * @returns - An object containing success status and error message if any
+ * @description - Updates the user's password. If successful, returns a success
+ * message.
+ */
+export const updatePassword = async (
+  password: string,
+  confirmPassword: string
+) => {
+  const supabase = await createClient();
+
+  if (!password && !confirmPassword) {
+    return {
+      success: false,
+      error: "Por favor completa todos los campos requeridos.",
+    };
+  }
+  if (password !== confirmPassword) {
+    return {
+      success: false,
+      error: "Las contraseñas no coinciden.",
+    };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    // Define error messages for specific error codes
+    // Note: The error codes should be replaced with actual Supabase errors
+    const errorCodeMessages = {
+      weak_password: "La contraseña es muy débil.",
+    } as const;
+
+    const message =
+      getSupabaseErrorMessage(error, errorCodeMessages) ||
+      "Ocurrió un error al actualizar la contraseña.";
+    return { success: false, error: message };
+  }
+
+  return { success: true };
 };

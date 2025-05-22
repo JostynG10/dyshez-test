@@ -1,0 +1,12 @@
+.imageBox {
+  width: 520px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #f6f6f6;
+}
+
+.image {
+  object-fit: contain;
+}

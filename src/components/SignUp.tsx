@@ -2,14 +2,14 @@
 
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import { useSignUpForm } from "@hooks/useSignUpForm";
+import { useSignUp } from "@hooks/useSignUp";
 import InputField from "./InputField";
 import Checkbox from "./Checkbox";
 import styles from "@styles/SignUp.module.css";
 
 /**
  * SignUp component renders the registration form for new users.
- * Handles form validation and submission using useSignUpForm hook.
+ * Handles form validation and submission using useSignUp hook.
  */
 export default function SignUp() {
   const {
@@ -19,7 +19,7 @@ export default function SignUp() {
     control,
     watches: { passwordValue, confirmPasswordValue },
     formState: { errors, isSubmitting },
-  } = useSignUpForm();
+  } = useSignUp();
 
   return (
     <form className={styles.container} onSubmit={handleSubmit()} noValidate>

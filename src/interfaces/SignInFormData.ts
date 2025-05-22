@@ -1,4 +1,4 @@
 export default interface SignInFormData {
-  user: string;
+  email: string;
   password: string;
 }
