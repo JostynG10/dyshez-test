@@ -52,13 +52,21 @@ export async function updateSession(request: NextRequest) {
     }
     return NextResponse.redirect(url);
   }
-  if (!user && !request.nextUrl.pathname.startsWith("/auth")) {
+  if (
+    !user &&
+    !request.nextUrl.pathname.startsWith("/auth") &&
+    !request.nextUrl.pathname.startsWith("/password")
+  ) {
     // no user, potentially respond by redirecting the user to the login page
     url.pathname = "/auth";
     url.search = "?mode=signin";
     return NextResponse.redirect(url);
   }
-  if (user && request.nextUrl.pathname.startsWith("/auth")) {
+  if (
+    user &&
+    (request.nextUrl.pathname.startsWith("/auth") ||
+      request.nextUrl.pathname.startsWith("/password"))
+  ) {
     // user is logged in, redirect to the home page
     url.pathname = "/home";
     url.search = "";

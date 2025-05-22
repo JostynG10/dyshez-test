@@ -2,9 +2,9 @@
 
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Image from "next/image";
-import SignIn from "@/components/SignIn";
-import SignUp from "@/components/SignUp";
+import SignIn from "@components/SignIn";
+import SignUp from "@components/SignUp";
+import BackgroundImage from "@components/BackgroundImage";
 import styles from "@styles/AuthPage.module.css";
 
 /**
@@ -41,15 +41,7 @@ export default function AuthPage() {
 
   return (
     <section className={styles.container}>
-      {/* Background image for the auth page */}
-      <div className={styles.imageBox}>
-        <Image
-          className={styles.image}
-          src="/images/login-background.svg"
-          alt="Imagen de fondo."
-          fill
-        />
-      </div>
+      <BackgroundImage />
 
       <div
         className={`${styles.content} ${

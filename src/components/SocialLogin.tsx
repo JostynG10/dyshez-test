@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { signInWithOAuth } from "@app/(auth-pages)/auth/actions";
+import { signInWithOAuth } from "@app/(auth-pages)/actions";
 import { toast } from "react-toastify";
 import type SocialProvider from "@interfaces/SocialProvider";
 import Image from "next/image";
