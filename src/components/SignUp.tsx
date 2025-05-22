@@ -7,6 +7,10 @@ import InputField from "./InputField";
 import Checkbox from "./Checkbox";
 import styles from "@styles/SignUp.module.css";
 
+/**
+ * SignUp component renders the registration form for new users.
+ * Handles form validation and submission using useSignUpForm hook.
+ */
 export default function SignUp() {
   const {
     register,
@@ -30,10 +34,10 @@ export default function SignUp() {
           type="text"
           icon="user"
           placeholder="Nombre(s)"
-          {...register("name", {
+          {...register("firstName", {
             required: "Por favor completa todos los campos requeridos.",
           })}
-          hasError={!!errors.name}
+          hasError={!!errors.firstName}
         />
         <InputField
           required
@@ -53,16 +57,16 @@ export default function SignUp() {
           type="phone"
           icon="mobile"
           placeholder="123 456 7890"
-          {...register("mobile", {
+          {...register("phone", {
             required: "Por favor completa todos los campos requeridos.",
           })}
-          hasError={!!errors.mobile}
+          hasError={!!errors.phone}
         />
         <InputField
           type="phone"
           icon="phone"
           placeholder="123 456 7890"
-          {...register("phone")}
+          {...register("secondaryPhone")}
         />
       </div>
 
@@ -80,6 +84,7 @@ export default function SignUp() {
           placeholder="Email"
           {...register("email", {
             required: "Por favor completa todos los campos requeridos.",
+            // Validate that email is in the correct format
             pattern: {
               value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
               message: "El correo es inválido.",
@@ -96,6 +101,7 @@ export default function SignUp() {
           placeholder="Contraseña"
           {...register("password", {
             required: "Por favor completa todos los campos requeridos.",
+            // Validate that password matches confirmPassword
             validate: (value) =>
               value === confirmPasswordValue || "Las contraseñas no coinciden.",
           })}
@@ -107,6 +113,7 @@ export default function SignUp() {
           placeholder="Verifica contraseña"
           {...register("confirmPassword", {
             required: "Por favor completa todos los campos requeridos.",
+            // Validate that confirmPassword matches password
             validate: (value) =>
               value === passwordValue || "Las contraseñas no coinciden.",
           })}
@@ -114,6 +121,9 @@ export default function SignUp() {
         />
       </div>
 
+      {/* The Checkbox component needs the Controller component to be able to handle
+      the status, validation and events of this type, since it does so directly
+      with register. */}
       <Controller
         name="terms"
         control={control}

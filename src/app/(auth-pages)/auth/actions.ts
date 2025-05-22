@@ -3,11 +3,27 @@
 import { createClient } from "@utils/supabase/server";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import SignUpFormData from "@interfaces/SignUpFormData";
-import SignInFormData from "@interfaces/SignInFormData";
+import type SignUpFormData from "@interfaces/SignUpFormData";
+import type SignInFormData from "@interfaces/SignInFormData";
+import { getSupabaseErrorMessage } from "@utils/utils";
 
+/**
+ * Sign up a new user
+ * @param formData - The form data containing user information
+ * @returns - An object containing success status and error message if any
+ * @description - Signs up a new user using email and password. If successful,
+ * returns a success message.
+ */
 export const signUp = async (formData: SignUpFormData) => {
-  const { password, email, name, lastName, mobile, phone, website } = formData;
+  const {
+    password,
+    email,
+    firstName,
+    lastName,
+    phone,
+    secondaryPhone,
+    website,
+  } = formData;
   const supabase = await createClient();
 
   if (!email || !password) {
@@ -17,58 +33,44 @@ export const signUp = async (formData: SignUpFormData) => {
     };
   }
 
-  const { data, error: signUpError } = await supabase.auth.signUp({
-    email: email,
-    password: password,
-  });
-
-  if (signUpError) {
-    const errorMessages = {
-      weak_password: "La contraseña es muy débil.",
-    };
-
-    const code = signUpError.code as keyof typeof errorMessages | undefined;
-    const message =
-      code && errorMessages[code]
-        ? errorMessages[code]
-        : "Ocurrió un error al registrarte.";
-
-    return { success: false, error: message };
-  }
-
-  const { error: insertError } = await supabase
-    .from("profiles")
-    .insert([
-      {
-        user_id: data.user!.id,
-        name: name,
-        last_names: lastName,
-        primary_phone: mobile,
-        secondary_phone: phone ?? null,
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        phone: phone,
+        secondary_phone: secondaryPhone ?? null,
         website: website ?? null,
       },
-    ])
-    .select();
+    },
+  });
 
-  if (insertError) {
-    console.log(insertError);
-    const errorMessages = {
-      invalid_email: "El correo electrónico es inválido.",
-      invalid_phone: "El número de teléfono es inválido.",
-    };
+  if (error) {
+    // Define error messages for specific error codes
+    // Note: The error codes should be replaced with actual Supabase errors
+    const errorCodeMessages = {
+      weak_password: "La contraseña es muy débil.",
+    } as const;
 
-    const code = insertError.code as keyof typeof errorMessages | undefined;
     const message =
-      code && errorMessages[code]
-        ? errorMessages[code]
-        : "Ocurrió un error al registrarte.";
-
+      getSupabaseErrorMessage(error, errorCodeMessages) ||
+      "Ocurrió un error al registrarse.";
     return { success: false, error: message };
   }
 
   return { success: true };
 };
 
+/**
+ * Sign in a user
+ * @param formData - The form data containing user credentials
+ * @returns - An object containing success status and error message if any or a
+ * redirect
+ * @description - Signs in a user using email and password. If successful,
+ * redirects to the home page.
+ */
 export const signIn = async (formData: SignInFormData) => {
   const { user, password } = formData;
   const supabase = await createClient();
@@ -86,23 +88,30 @@ export const signIn = async (formData: SignInFormData) => {
   });
 
   if (error) {
-    const errorMessages = {
+    // Define error messages for specific error codes
+    // Note: The error codes should be replaced with actual Supabase errors
+    const errorCodeMessages = {
       invalid_credentials: "Las credenciales son inválidas.",
       email_not_confirmed: "El correo electrónico no ha sido confirmado.",
     } as const;
 
-    const code = error.code as keyof typeof errorMessages | undefined;
     const message =
-      code && errorMessages[code]
-        ? errorMessages[code]
-        : "Ocurrió un error al iniciar sesión.";
-
+      getSupabaseErrorMessage(error, errorCodeMessages) ||
+      "Ocurrió un error al iniciar sesión.";
     return { success: false, error: message };
   }
 
   return redirect("home");
 };
 
+/**
+ * Sign in a user using OAuth
+ * @param provider - The OAuth provider to use for authentication
+ * @returns - An object containing success status and error message if any or a
+ * redirect
+ * @description - Signs in a user using OAuth. If successful, redirects to the
+ * callback URL.
+ */
 export const signInWithOAuth = async (provider: "google" | "github") => {
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
@@ -115,17 +124,16 @@ export const signInWithOAuth = async (provider: "google" | "github") => {
   });
 
   if (error) {
-    const errorMessages = {
+    // Define error messages for specific error codes
+    // Note: The error codes should be replaced with actual Supabase errors
+    const errorCodeMessages = {
       invalid_credentials: "Las credenciales son inválidas.",
       email_not_confirmed: "El correo electrónico no ha sido confirmado.",
     } as const;
 
-    const code = error.code as keyof typeof errorMessages | undefined;
     const message =
-      code && errorMessages[code]
-        ? errorMessages[code]
-        : "Ocurrió un error al iniciar sesión.";
-
+      getSupabaseErrorMessage(error, errorCodeMessages) ||
+      "Ocurrió un error al iniciar sesión.";
     return { success: false, error: message };
   }
 
