@@ -9,7 +9,6 @@ import type SignInFormData from "@interfaces/SignInFormData";
  * Encapsulates validation, submission, and error handling logic.
  */
 export function useSignInForm() {
-  // Initialize react-hook-form with the form data type
   const {
     register,
     handleSubmit,

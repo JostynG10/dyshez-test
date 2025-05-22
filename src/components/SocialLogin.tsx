@@ -3,7 +3,7 @@
 import React from "react";
 import { signInWithOAuth } from "@app/(auth-pages)/auth/actions";
 import { toast } from "react-toastify";
-import SocialProvider from "@interfaces/SocialProvider";
+import type SocialProvider from "@interfaces/SocialProvider";
 import Image from "next/image";
 import styles from "@styles/SocialLogin.module.css";
 

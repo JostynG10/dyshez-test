@@ -11,8 +11,6 @@ import type SignUpFormData from "@interfaces/SignUpFormData";
  */
 export function useSignUpForm() {
   const router = useRouter();
-
-  // Initialize react-hook-form with the form data type
   const {
     register,
     handleSubmit,
@@ -27,7 +25,8 @@ export function useSignUpForm() {
 
   /**
    * Function executed on successful form submission.
-   * Shows a loading toast, handles errors, and redirects after successful registration.
+   * Shows a loading toast, handles errors, and redirects after successful
+   * registration.
    */
   const onSubmit = async (data: SignUpFormData) => {
     const toastId = toast.loading("Loading...");
@@ -49,7 +48,6 @@ export function useSignUpForm() {
         isLoading: false,
         autoClose: 5000,
       });
-      // Redirect to sign-in mode after registration
       router.replace("?mode=signin");
     }
   };

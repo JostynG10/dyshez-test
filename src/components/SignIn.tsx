@@ -7,6 +7,10 @@ import InputField from "./InputField";
 import SocialLogin from "@components/SocialLogin";
 import styles from "@styles/SignIn.module.css";
 
+/**
+ * SignIn component renders the login form for existing users.
+ * Handles form validation and submission using useSignInForm hook.
+ */
 export default function SignIn() {
   const {
     register,

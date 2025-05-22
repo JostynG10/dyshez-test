@@ -7,13 +7,23 @@ import SignIn from "@/components/SignIn";
 import SignUp from "@/components/SignUp";
 import styles from "@styles/AuthPage.module.css";
 
+/**
+ * AuthPage component handles the authentication UI.
+ * It toggles between login and registration forms based on the "mode" query
+ * param. Also manages the route and UI state for switching between modes.
+ */
 export default function AuthPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  /**
+   * Get the "mode" query parameter to determine which form to show.
+   * This value changes every time the user clicks on the buttons.
+   */
   const modeParam = searchParams.get("mode");
   const isLogin = modeParam !== "signup";
 
+  // Redirect to "?mode=signin" if no mode is present in the URL
   useEffect(() => {
     if (modeParam === null) {
       router.replace("?mode=signin");
@@ -21,12 +31,17 @@ export default function AuthPage() {
     // eslint-disable-next-line
   }, [modeParam]);
 
+  /**
+   * Handles switching between login and registration modes.
+   * Updates the URL query parameter accordingly.
+   */
   const handleRoute = (isLogin: boolean) => {
     router.replace(`?mode=${isLogin ? "signin" : "signup"}`);
   };
 
   return (
     <section className={styles.container}>
+      {/* Background image for the auth page */}
       <div className={styles.imageBox}>
         <Image
           className={styles.image}
@@ -42,6 +57,7 @@ export default function AuthPage() {
         }`}
       >
         <header className={styles.header}>
+          {/* Buttons to toggle between Login and Register modes */}
           <div className={styles.buttonsBox}>
             <button
               onClick={() => handleRoute(true)}
@@ -63,6 +79,7 @@ export default function AuthPage() {
             </button>
           </div>
 
+          {/* Animated line indicating the active mode */}
           <div
             className={`${styles.line} ${
               isLogin ? styles.lineLogin : styles.lineRegister
@@ -75,6 +92,7 @@ export default function AuthPage() {
             isLogin ? styles.wrapperLogin : styles.wrapperRegister
           }`}
         >
+          {/* The forms are rendered, but only one is visible based on mode */}
           <SignIn key={isLogin ? "signin-active" : "signin-inactive"} />
           <SignUp key={isLogin ? "signup-inactive" : "signup-active"} />
         </div>
