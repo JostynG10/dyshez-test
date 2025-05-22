@@ -7,7 +7,7 @@ import SignUpFormData from "@interfaces/SignUpFormData";
 import SignInFormData from "@interfaces/SignInFormData";
 
 export const signUp = async (formData: SignUpFormData) => {
-  const { email, password } = formData;
+  const { password, email, name, lastName, mobile, phone, website } = formData;
   const supabase = await createClient();
 
   if (!email || !password) {
@@ -17,17 +17,17 @@ export const signUp = async (formData: SignUpFormData) => {
     };
   }
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
+  const { data, error: signUpError } = await supabase.auth.signUp({
+    email: email,
+    password: password,
   });
 
-  if (error) {
+  if (signUpError) {
     const errorMessages = {
       weak_password: "La contraseña es muy débil.",
     };
 
-    const code = error.code as keyof typeof errorMessages | undefined;
+    const code = signUpError.code as keyof typeof errorMessages | undefined;
     const message =
       code && errorMessages[code]
         ? errorMessages[code]
@@ -35,6 +35,37 @@ export const signUp = async (formData: SignUpFormData) => {
 
     return { success: false, error: message };
   }
+
+  const { error: insertError } = await supabase
+    .from("profiles")
+    .insert([
+      {
+        user_id: data.user!.id,
+        name: name,
+        last_names: lastName,
+        primary_phone: mobile,
+        secondary_phone: phone ?? null,
+        website: website ?? null,
+      },
+    ])
+    .select();
+
+  if (insertError) {
+    console.log(insertError);
+    const errorMessages = {
+      invalid_email: "El correo electrónico es inválido.",
+      invalid_phone: "El número de teléfono es inválido.",
+    };
+
+    const code = insertError.code as keyof typeof errorMessages | undefined;
+    const message =
+      code && errorMessages[code]
+        ? errorMessages[code]
+        : "Ocurrió un error al registrarte.";
+
+    return { success: false, error: message };
+  }
+
   return { success: true };
 };
 

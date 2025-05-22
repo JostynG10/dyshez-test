@@ -1,13 +1,9 @@
 "use client";
 
 import React from "react";
-import type { FieldErrors } from "react-hook-form";
-import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
-import { toast } from "react-toastify";
-import { signIn } from "@app/(auth-pages)/auth/actions";
+import { useSignInForm } from "@hooks/useSignInForm";
 import InputField from "./InputField";
-import SignInFormData from "@interfaces/SignInFormData";
 import SocialLogin from "@components/SocialLogin";
 import styles from "@styles/SignIn.module.css";
 
@@ -16,35 +12,10 @@ export default function SignIn() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignInFormData>();
-
-  const onSubmit = async (data: SignInFormData) => {
-    const toastId = toast.loading("Cargando...");
-    const { error } = await signIn(data);
-
-    if (error) {
-      toast.update(toastId, {
-        render: error,
-        type: "error",
-        isLoading: false,
-        autoClose: 5000,
-      });
-    }
-  };
-
-  const onError = (errors: FieldErrors<SignInFormData>) => {
-    const firstError = Object.values(errors)[0];
-    if (firstError) {
-      toast.error(firstError.message);
-    }
-  };
+  } = useSignInForm();
 
   return (
-    <form
-      className={styles.container}
-      onSubmit={handleSubmit(onSubmit, onError)}
-      noValidate
-    >
+    <form className={styles.container} onSubmit={handleSubmit()} noValidate>
       <p className={styles.text}>
         Ingresa con tu correo electrónico o tu número de teléfono
       </p>

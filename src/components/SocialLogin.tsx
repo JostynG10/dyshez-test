@@ -7,6 +7,7 @@ import SocialProvider from "@interfaces/SocialProvider";
 import Image from "next/image";
 import styles from "@styles/SocialLogin.module.css";
 
+// List of supported social providers with their logos
 const socialProviders: SocialProvider[] = [
   {
     provider: "google",
@@ -18,9 +19,17 @@ const socialProviders: SocialProvider[] = [
   },
 ];
 
+/**
+ * SocialLogin component renders buttons for social authentication.
+ * Handles OAuth sign-in and displays toast notifications for errors.
+ */
 export default function SocialLogin() {
+  /**
+   * Handles OAuth sign-in for the selected provider.
+   * Shows a loading toast and updates it if an error occurs.
+   */
   const handleSignInWidthGoogle = async (provider: "google" | "github") => {
-    const toastId = toast.loading("Cargando...");
+    const toastId = toast.loading("Loading...");
     const { error } = await signInWithOAuth(provider);
 
     if (error) {
@@ -35,6 +44,7 @@ export default function SocialLogin() {
 
   return (
     <div className={styles.socialLogin}>
+      {/* Render a button for each social provider */}
       {socialProviders.map((socialProvider, index) => (
         <button
           key={index}
@@ -46,7 +56,7 @@ export default function SocialLogin() {
             width={24}
             height={24}
             src={socialProvider.logo}
-            alt="Logo de red social."
+            alt="Social provider logo."
           />
         </button>
       ))}

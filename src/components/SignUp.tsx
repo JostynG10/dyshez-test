@@ -1,66 +1,24 @@
 "use client";
 
 import React from "react";
-import type { FieldErrors } from "react-hook-form";
-import { useForm, Controller } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa6";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import { signUp } from "@app/(auth-pages)/auth/actions";
+import { useSignUpForm } from "@hooks/useSignUpForm";
 import InputField from "./InputField";
 import Checkbox from "./Checkbox";
-import SignUpFormData from "@interfaces/SignUpFormData";
 import styles from "@styles/SignUp.module.css";
 
 export default function SignUp() {
-  const router = useRouter();
   const {
     register,
     handleSubmit,
-    watch,
+    Controller,
     control,
+    watches: { passwordValue, confirmPasswordValue },
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormData>();
-
-  const passwordValue = watch("password");
-  const confirmPasswordValue = watch("confirmPassword");
-
-  const onSubmit = async (data: SignUpFormData) => {
-    const toastId = toast.loading("Cargando...");
-    const { success, error } = await signUp(data);
-
-    if (error) {
-      toast.update(toastId, {
-        render: error,
-        type: "error",
-        isLoading: false,
-        autoClose: 5000,
-      });
-    }
-    if (success) {
-      toast.update(toastId, {
-        render: "Registro exitoso, revisa tu correo para verificar tu cuenta.",
-        type: "success",
-        isLoading: false,
-        autoClose: 5000,
-      });
-      router.replace("?mode=signin");
-    }
-  };
-
-  const onError = (errors: FieldErrors<SignUpFormData>) => {
-    const firstError = Object.values(errors)[0];
-    if (firstError) {
-      toast.error(firstError.message);
-    }
-  };
+  } = useSignUpForm();
 
   return (
-    <form
-      className={styles.container}
-      onSubmit={handleSubmit(onSubmit, onError)}
-      noValidate
-    >
+    <form className={styles.container} onSubmit={handleSubmit()} noValidate>
       <p className={styles.text}>
         Únete a la revolución, para comenzar a utilizar la plataforma ingresa
         los siguientes datos y se parte del movimiento de Dyshez.
