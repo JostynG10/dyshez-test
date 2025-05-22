@@ -1,0 +1,12 @@
+.logoutButton {
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  transform: rotate(-45deg);
+  color: var(--gray-500);
+}
