@@ -16,7 +16,11 @@ export default function LogoutButton() {
   };
 
   return (
-    <button onClick={logout} className={styles.logoutButton}>
+    <button
+      onClick={logout}
+      className={styles.logoutButton}
+      title="Cerrar sesión"
+    >
       <LuCircleArrowOutDownRight className={styles.icon} />
     </button>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import styles from "@styles/HomeLayout.module.css";
 import Image from "next/image";
 import LogoutButton from "@components/LogoutButton";
+import NavButtons from "@components/NavButtons";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,11 +16,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             src="/images/avatar.svg"
             alt="imagen del usuario"
           />
+
+          <NavButtons />
         </div>
 
         <LogoutButton />
       </aside>
-      {children}
+
+      <main className={styles.main}>{children}</main>
     </section>
   );
 }

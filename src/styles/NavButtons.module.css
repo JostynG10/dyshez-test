@@ -1,0 +1,33 @@
+.buttonsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.button {
+  padding: 0.625rem 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.selectedLine {
+  width: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 0 0.8rem 0.8rem 0;
+  background-color: var(--pink-700);
+}
+
+.icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: #9c9c9c;
+}
+
+.iconSelected {
+  color: var(--pink-700);
+}
