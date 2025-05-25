@@ -1,7 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { signUp } from "@app/(auth-pages)/actions";
+import { signUp } from "@actions/auth";
 import type { FieldErrors } from "react-hook-form";
 import type SignUpFormData from "@interfaces/SignUpFormData";
 

@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  gap: 0.625rem;
+}
+
+.loader {
+  height: 40px;
+  border-radius: 6.25rem;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--gray-300) 25%,
+    var(--gray-200) 50%,
+    var(--gray-300) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+}
+
+.loaderAll {
+  width: 75px;
+}
+
+.loaderAccepted {
+  width: 107px;
+}
+
+.loaderRejected {
+  width: 117px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { resetPassword } from "@app/(auth-pages)/actions";
+import { resetPassword } from "@actions/auth";
 import type { FieldErrors } from "react-hook-form";
 import type ForgotPasswordProps from "@interfaces/ForgotPasswordProps";
 

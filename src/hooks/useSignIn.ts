@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { signIn } from "@app/(auth-pages)/actions";
+import { signIn } from "@actions/auth";
 import type { FieldErrors } from "react-hook-form";
 import type SignInFormData from "@interfaces/SignInFormData";
 

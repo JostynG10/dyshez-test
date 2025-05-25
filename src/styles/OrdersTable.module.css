@@ -1,0 +1,55 @@
+.table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.tableHeadRow {
+  border-width: 0.0625rem 0;
+  border-style: solid;
+  border-color: var(--gray-200);
+}
+
+.tableHead {
+  width: 148px;
+  padding: 0.75rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.tableHeadExpanded {
+  width: calc(calc(100% - 888px) / 2);
+}
+
+.tableTitle {
+  font-family: var(--font-hauora);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.0625rem;
+  color: var(--gray-700);
+  text-wrap: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tableHeadExpanded > .tableTitle {
+  justify-content: start;
+}
+
+.sortButton {
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.sortButtonActive {
+  background-color: var(--gray-300);
+}
+
+.sortIcon {
+  width: 1.1875rem;
+  height: 1.1875rem;
+  color: var(--gray-500);
+}
