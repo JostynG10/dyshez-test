@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+  padding: 0.75rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.arrowIcon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--gray-500);
+}
+
+.pagesBox {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.buttonLoading {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.numberLoading {
+  width: 9px;
+  height: 17px;
+  border-radius: 4px;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--gray-300) 25%,
+    var(--gray-200) 50%,
+    var(--gray-300) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

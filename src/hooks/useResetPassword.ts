@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { updatePassword } from "@app/(auth-pages)/actions";
+import { updatePassword } from "@actions/auth";
 import { useRouter } from "next/navigation";
 import type { FieldErrors } from "react-hook-form";
 import type ResetPasswordProps from "@interfaces/ResetPasswordProps";

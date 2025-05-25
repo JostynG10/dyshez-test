@@ -1,0 +1,69 @@
+.tableBodyRow {
+  border-width: 0 0 0.0625rem;
+  border-style: solid;
+  border-color: var(--gray-200);
+}
+
+.tableData {
+  height: 72px;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-hauora);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.0625rem;
+  color: var(--gray-600);
+  text-align: center;
+  text-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+.tableDataExpanded {
+  text-align: start;
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 6.25rem;
+}
+
+.accepted {
+  background-color: #def2e6;
+  color: #11845b;
+}
+
+.rejected {
+  background-color: #ffeff0;
+  color: #dc2b2b;
+}
+
+.noOrders {
+  flex-grow: 1;
+  display: grid;
+  place-items: center;
+}
+
+.emptyIcon {
+  width: 6.25rem;
+  height: 6.25rem;
+  color: var(--gray-600);
+}
+
+.noOrdersContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noOrdersIcon {
+  width: 12.5rem;
+  height: 12.5rem;
+  color: var(--pink-700);
+}
+
+.noOrdersText {
+  font-family: var(--font-poppins);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.75rem;
+  color: var(--pink-700);
+}

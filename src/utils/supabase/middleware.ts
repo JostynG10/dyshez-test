@@ -40,10 +40,13 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
   const url = request.nextUrl.clone();
 
-  if (request.nextUrl.pathname === "/") {
+  if (
+    request.nextUrl.pathname === "/" ||
+    request.nextUrl.pathname === "/home"
+  ) {
     if (user) {
       // user is logged in, redirect to the home page
-      url.pathname = "/home";
+      url.pathname = "/home/orders";
       url.search = "";
     } else {
       // no user, potentially respond by redirecting the user to the login page
@@ -52,6 +55,7 @@ export async function updateSession(request: NextRequest) {
     }
     return NextResponse.redirect(url);
   }
+
   if (
     !user &&
     !request.nextUrl.pathname.startsWith("/auth") &&
@@ -62,13 +66,14 @@ export async function updateSession(request: NextRequest) {
     url.search = "?mode=signin";
     return NextResponse.redirect(url);
   }
+
   if (
     user &&
     (request.nextUrl.pathname.startsWith("/auth") ||
       request.nextUrl.pathname.startsWith("/password"))
   ) {
     // user is logged in, redirect to the home page
-    url.pathname = "/home";
+    url.pathname = "/home/orders";
     url.search = "";
     return NextResponse.redirect(url);
   }
