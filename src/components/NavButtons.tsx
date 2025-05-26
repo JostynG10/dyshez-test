@@ -3,6 +3,7 @@
 import React, { useEffect, useState, cloneElement } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { BiShoppingBag } from "react-icons/bi";
+import { FaImage } from "react-icons/fa6";
 import styles from "@styles/NavButtons.module.css";
 
 // Define the routes for the navigation buttons
@@ -11,6 +12,11 @@ const routes = [
     name: "Ordenes",
     path: "/home/orders",
     icon: <BiShoppingBag />,
+  },
+  {
+    name: "Imágenes",
+    path: "/home/pictures",
+    icon: <FaImage />,
   },
 ];
 

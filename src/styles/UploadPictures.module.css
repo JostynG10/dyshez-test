@@ -1,0 +1,25 @@
+.container {
+  width: min-content;
+  height: min-content;
+}
+
+.input {
+  display: none;
+}
+
+.button {
+  width: 7.75rem;
+  height: 7.75rem;
+  border-radius: 0.5rem;
+  border: 0.0625rem solid var(--gray-600);
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #808080;
+}
