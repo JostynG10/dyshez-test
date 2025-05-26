@@ -3,9 +3,9 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { useSignUp } from "@hooks/useSignUp";
-import InputField from "./InputField";
-import Checkbox from "./Checkbox";
-import styles from "@styles/SignUp.module.css";
+import InputField from "@components/common/InputField";
+import Checkbox from "@components/common/Checkbox";
+import styles from "@styles/auth/SignUp.module.css";
 
 /**
  * SignUp component renders the registration form for new users.

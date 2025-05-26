@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useFiltersCount } from "@hooks/useFiltersCount";
-import styles from "@styles/OrdersFilters.module.css";
+import styles from "@styles/orders/OrdersFilters.module.css";
 
 /**
  * OrderFilters component renders the filters buttons for orders.
@@ -33,6 +33,7 @@ export default function OrdersFilters() {
     ) {
       const params = new URLSearchParams(searchParams.toString());
       params.set("status", "all");
+      params.set("page", "1");
       router.replace(`?${params.toString()}`);
     }
     // eslint-disable-next-line

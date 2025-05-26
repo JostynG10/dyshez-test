@@ -4,7 +4,7 @@ import React from "react";
 import { LuCircleArrowOutDownRight } from "react-icons/lu";
 import { createClient } from "@utils/supabase/client";
 import { useRouter } from "next/navigation";
-import styles from "@styles/LogoutButton.module.css";
+import styles from "@styles/common/LogoutButton.module.css";
 
 export default function LogoutButton() {
   const router = useRouter();

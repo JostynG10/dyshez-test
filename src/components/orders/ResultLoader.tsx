@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@styles/ResultLoader.module.css";
+import styles from "@styles/orders/ResultLoader.module.css";
 
 /**
  * ResultLoader component is a skeleton loader for the OrdersResult's table.

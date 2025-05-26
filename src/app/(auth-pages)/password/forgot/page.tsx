@@ -3,8 +3,8 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { useForgotPassword } from "@hooks/useForgotPassword";
-import InputField from "@components/InputField";
-import styles from "@styles/ForgotPassword.module.css";
+import InputField from "@components/common/InputField";
+import styles from "@styles/auth/ForgotPassword.module.css";
 
 export default function ForgotPasswordPage() {
   const {

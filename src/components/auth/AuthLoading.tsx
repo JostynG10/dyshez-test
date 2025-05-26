@@ -1,6 +1,6 @@
 import React from "react";
 import { LiaSpinnerSolid } from "react-icons/lia";
-import styles from "@styles/AuthLoading.module.css";
+import styles from "@styles/auth/AuthLoading.module.css";
 
 export default function AuthLoading() {
   return (

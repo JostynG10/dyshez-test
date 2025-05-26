@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useGetOrders } from "@hooks/useGetOrders";
 import { TbPlaylistX } from "react-icons/tb";
+import ResultLoader from "@components/orders/ResultLoader";
+import OrdersTable from "@components/orders/OrdersTable";
 import type GetOrdersProps from "@interfaces/GetOrdersProps";
 import type SortBy from "@interfaces/SortBy";
-import styles from "@styles/OrdersResult.module.css";
-import ResultLoader from "./ResultLoader";
-import OrdersTable from "./OrdersTable";
+import styles from "@styles/orders/OrdersResult.module.css";
 
 /**
  * This function is used to get the parameters for the fetch request.
@@ -46,7 +46,6 @@ const getParams = (
 
   return fetchParams;
 };
-
 
 /**
  * OrdersResult component is responsible for rendering the list of orders.

@@ -1,6 +1,6 @@
 import React from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import styles from "@styles/PaginationLoader.module.css";
+import styles from "@styles/orders/PaginationLoader.module.css";
 
 /**
  * PaginationLoader component is a skeleton loader for the OrdersPagination.

@@ -2,10 +2,10 @@
 
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import SignIn from "@components/SignIn";
-import SignUp from "@components/SignUp";
-import BackgroundImage from "@components/BackgroundImage";
-import styles from "@styles/AuthPage.module.css";
+import SignIn from "@components/auth/SignIn";
+import SignUp from "@components/auth/SignUp";
+import BackgroundImage from "@components/auth/BackgroundImage";
+import styles from "@styles/auth/AuthPage.module.css";
 
 /**
  * AuthPage component handles the authentication UI.

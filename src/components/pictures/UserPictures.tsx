@@ -5,8 +5,8 @@ import { usePictures } from "@hooks/usePictures";
 import { FiTrash2 } from "react-icons/fi";
 import { usePicturesContext } from "@context/PicturesContext";
 import Image from "next/image";
-import UploadPictures from "@components/UploadPictures";
-import styles from "@styles/UserPictures.module.css";
+import UploadPictures from "@components/pictures/UploadPictures";
+import styles from "@styles/pictures/UserPictures.module.css";
 
 /**
  * UserPictures component displays the user's uploaded pictures,

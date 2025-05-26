@@ -5,7 +5,7 @@ import { signInWithOAuth } from "@actions/auth";
 import { toast } from "react-toastify";
 import type SocialProvider from "@interfaces/SocialProvider";
 import Image from "next/image";
-import styles from "@styles/SocialLogin.module.css";
+import styles from "@styles/auth/SocialLogin.module.css";
 
 // List of supported social providers with their logos
 const socialProviders: SocialProvider[] = [

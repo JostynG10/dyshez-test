@@ -3,9 +3,9 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { useSignIn } from "@hooks/useSignIn";
-import InputField from "./InputField";
-import SocialLogin from "@components/SocialLogin";
-import styles from "@styles/SignIn.module.css";
+import InputField from "@components/common/InputField";
+import SocialLogin from "@components/auth/SocialLogin";
+import styles from "@styles/auth/SignIn.module.css";
 
 /**
  * SignIn component renders the login form for existing users.

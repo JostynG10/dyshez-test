@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "@styles/HomeLayout.module.css";
 import Image from "next/image";
-import LogoutButton from "@components/LogoutButton";
-import NavButtons from "@components/NavButtons";
+import LogoutButton from "@components/common/LogoutButton";
+import NavButtons from "@components/common/NavButtons";
+import styles from "@styles/common/HomeLayout.module.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

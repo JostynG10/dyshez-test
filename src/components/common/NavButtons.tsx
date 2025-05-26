@@ -4,7 +4,7 @@ import React, { useEffect, useState, cloneElement } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { BiShoppingBag } from "react-icons/bi";
 import { FaImage } from "react-icons/fa6";
-import styles from "@styles/NavButtons.module.css";
+import styles from "@styles/common/NavButtons.module.css";
 
 // Define the routes for the navigation buttons
 const routes = [

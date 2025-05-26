@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "@styles/BackgroundImage.module.css";
+import styles from "@styles/auth/BackgroundImage.module.css";
 
 export default function BackgroundImage() {
   return (

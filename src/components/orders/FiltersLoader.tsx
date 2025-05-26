@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@styles/FiltersLoader.module.css";
+import styles from "@styles/orders/FiltersLoader.module.css";
 
 /**
  * FiltersLoader component is a skeleton loader for the OrdersFilters.

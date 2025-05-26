@@ -7,7 +7,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { LiaPhoneSolid } from "react-icons/lia";
 import { TbWorld } from "react-icons/tb";
 import type InputFieldProps from "@interfaces/InputFieldProps";
-import styles from "@styles/InputField.module.css";
+import styles from "@styles/common/InputField.module.css";
 
 // Custom InputField component using forwardRef for React Hook Form support
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(

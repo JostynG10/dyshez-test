@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-import AuthLoading from "@/components/AuthLoading";
-import AuthPage from "@/components/AuthPage";
+import AuthLoading from "@components/auth/AuthLoading";
+import AuthPage from "@components/auth/AuthPage";
 
 /**
  * The Auth component render the authentication page.

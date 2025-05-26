@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "@styles/AuthLayout.module.css";
+import styles from "@styles/auth/AuthLayout.module.css";
 
 export default function AuthLayout({
   children,

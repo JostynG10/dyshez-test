@@ -1,6 +1,6 @@
 import React from "react";
-import BackgroundImage from "@components/BackgroundImage";
-import styles from "@styles/PasswordLayout.module.css";
+import BackgroundImage from "@components/auth/BackgroundImage";
+import styles from "@styles/auth/PasswordLayout.module.css";
 
 export default function PasswordLayout({
   children,
