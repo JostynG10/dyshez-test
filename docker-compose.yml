@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  client:
+    container_name: dyshez-test
+    build: ./
+    restart: always
+  nginx:
+    container_name: dyshez-test-nginx
+    build: ./nginx/
+    ports:
+      - 3000:443
+    restart: always
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl/certificate.crt:/root/ssl/certificate.crt
+      - ./nginx/ssl/private.key:/root/ssl/private.key
+    depends_on:
+      - client
