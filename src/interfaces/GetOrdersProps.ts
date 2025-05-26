@@ -1,9 +1,8 @@
+import type SortBy from "@interfaces/SortBy";
+
 export default interface GetOrdersProps {
-  page?: number;
-  pageSize?: number;
-  filter?: "all" | "accepted" | "rejected";
-  order?: {
-    orderBy: string;
-    order: "asc" | "desc";
-  };
+  sortBy: SortBy | null;
+  pageSize: number;
+  page: number | null;
+  status: "all" | "accepted" | "rejected";
 }

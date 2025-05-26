@@ -82,3 +82,8 @@ body {
   margin: 0;
   overflow: hidden;
 }
+
+.Toastify__toast,
+.Toastify__toast-body {
+  font-family: var(--font-poppins) !important;
+}
