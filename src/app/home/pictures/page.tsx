@@ -2,7 +2,11 @@ import React from "react";
 import styles from "@styles/PicturesPage.module.css";
 import UserPictures from "@components/UserPictures";
 import PicturesPreview from "@components/PicturesPreview";
+import { PicturesProvider } from "@/context/PicturesContext";
 
+/**
+ * PicturesPage represents the page for managing user pictures.
+ */
 export default function PicturesPage() {
   return (
     <section className={styles.container}>
@@ -11,8 +15,10 @@ export default function PicturesPage() {
       </header>
 
       <div className={styles.content}>
-        <UserPictures />
-        <PicturesPreview />
+        <PicturesProvider>
+          <UserPictures />
+          <PicturesPreview />
+        </PicturesProvider>
       </div>
     </section>
   );

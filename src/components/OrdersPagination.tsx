@@ -36,7 +36,6 @@ export default function OrdersPagination({
    */
   useEffect(() => {
     if (!currentPage) {
-      console.log("No hay página");
       const params = new URLSearchParams(searchParams.toString());
       params.set("page", "1");
       router.replace(`?${params.toString()}`);

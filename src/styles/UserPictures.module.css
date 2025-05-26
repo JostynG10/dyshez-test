@@ -19,6 +19,12 @@
   cursor: pointer;
 }
 
+.pictureBoxSelected {
+  width: 116px;
+  height: 116px;
+  border: 0.25rem solid var(--pink-700);
+}
+
 .deleteButton {
   padding: 0.5625rem;
   position: absolute;

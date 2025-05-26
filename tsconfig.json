@@ -21,6 +21,7 @@
       "@actions/*": ["./src/actions/*"],
       "@app/*": ["./src/app/*"],
       "@components/*": ["./src/components/*"],
+      "@context/*": ["./src/context/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@interfaces/*": ["./src/interfaces/*"],
       "@styles/*": ["./src/styles/*"],
