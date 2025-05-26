@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 1.25rem 0 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  box-sizing: border-box;
+}
+
+.header {
+  padding: 0.4375rem 2.5rem 0.4375rem 0;
+}
+
+.title {
+  font-family: var(--font-poppins);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.625rem;
+  color: var(--gray-800);
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  gap: 2rem;
+  overflow: auto;
+}
