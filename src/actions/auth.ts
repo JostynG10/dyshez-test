@@ -3,9 +3,9 @@
 import { createClient } from "@utils/supabase/server";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
+import { getSupabaseErrorMessage } from "@utils/utils";
 import type SignUpFormData from "@interfaces/SignUpFormData";
 import type SignInFormData from "@interfaces/SignInFormData";
-import { getSupabaseErrorMessage } from "@utils/utils";
 
 /**
  * Sign up a new user
@@ -15,52 +15,56 @@ import { getSupabaseErrorMessage } from "@utils/utils";
  * returns a success message.
  */
 export const signUp = async (formData: SignUpFormData) => {
-  const {
-    password,
-    email,
-    firstName,
-    lastName,
-    phone,
-    secondaryPhone,
-    website,
-  } = formData;
-  const supabase = await createClient();
+  try {
+    const {
+      password,
+      email,
+      firstName,
+      lastName,
+      phone,
+      secondaryPhone,
+      website,
+    } = formData;
+    const supabase = await createClient();
 
-  if (!email || !password) {
-    return {
-      success: false,
-      error: "Por favor completa todos los campos requeridos.",
-    };
-  }
+    if (!email || !password) {
+      return {
+        success: false,
+        error: "Por favor completa todos los campos requeridos.",
+      };
+    }
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        first_name: firstName,
-        last_name: lastName,
-        phone: phone,
-        secondary_phone: secondaryPhone ?? null,
-        website: website ?? null,
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          phone: phone,
+          secondary_phone: secondaryPhone ?? null,
+          website: website ?? null,
+        },
       },
-    },
-  });
+    });
 
-  if (error) {
-    // Define error messages for specific error codes
-    // Note: The error codes should be replaced with actual Supabase errors
-    const errorCodeMessages = {
-      weak_password: "La contraseña es muy débil.",
-    } as const;
+    if (error) {
+      // Define error messages for specific error codes
+      // Note: The error codes should be replaced with actual Supabase errors
+      const errorCodeMessages = {
+        weak_password: "La contraseña es muy débil.",
+      } as const;
 
-    const message =
-      getSupabaseErrorMessage(error, errorCodeMessages) ||
-      "Ocurrió un error al registrarse.";
-    return { success: false, error: message };
+      const message =
+        getSupabaseErrorMessage(error, errorCodeMessages) ||
+        "Ocurrió un error al registrarse.";
+      return { success: false, error: message };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: (error as Error).message };
   }
-
-  return { success: true };
 };
 
 /**
@@ -72,36 +76,40 @@ export const signUp = async (formData: SignUpFormData) => {
  * redirects to the home page.
  */
 export const signIn = async (formData: SignInFormData) => {
-  const { email, password } = formData;
-  const supabase = await createClient();
+  try {
+    const { email, password } = formData;
+    const supabase = await createClient();
 
-  if (!email || !password) {
-    return {
-      success: false,
-      error: "Por favor completa todos los campos requeridos.",
-    };
+    if (!email || !password) {
+      return {
+        success: false,
+        error: "Por favor completa todos los campos requeridos.",
+      };
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password,
+    });
+
+    if (error) {
+      // Define error messages for specific error codes
+      // Note: The error codes should be replaced with actual Supabase errors
+      const errorCodeMessages = {
+        invalid_credentials: "Las credenciales son inválidas.",
+        email_not_confirmed: "El correo electrónico no ha sido confirmado.",
+      } as const;
+
+      const message =
+        getSupabaseErrorMessage(error, errorCodeMessages) ||
+        "Ocurrió un error al iniciar sesión.";
+      return { success: false, error: message };
+    }
+
+    return redirect("home");
+  } catch (error) {
+    return { success: false, error: (error as Error).message };
   }
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password,
-  });
-
-  if (error) {
-    // Define error messages for specific error codes
-    // Note: The error codes should be replaced with actual Supabase errors
-    const errorCodeMessages = {
-      invalid_credentials: "Las credenciales son inválidas.",
-      email_not_confirmed: "El correo electrónico no ha sido confirmado.",
-    } as const;
-
-    const message =
-      getSupabaseErrorMessage(error, errorCodeMessages) ||
-      "Ocurrió un error al iniciar sesión.";
-    return { success: false, error: message };
-  }
-
-  return redirect("home");
 };
 
 /**
@@ -113,31 +121,35 @@ export const signIn = async (formData: SignInFormData) => {
  * callback URL.
  */
 export const signInWithOAuth = async (provider: "google" | "github") => {
-  const supabase = await createClient();
-  const origin = (await headers()).get("origin");
+  try {
+    const supabase = await createClient();
+    const origin = (await headers()).get("origin");
 
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider,
-    options: {
-      redirectTo: `${origin}/auth/callback`,
-    },
-  });
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${origin}/auth/callback`,
+      },
+    });
 
-  if (error) {
-    // Define error messages for specific error codes
-    // Note: The error codes should be replaced with actual Supabase errors
-    const errorCodeMessages = {
-      invalid_credentials: "Las credenciales son inválidas.",
-      email_not_confirmed: "El correo electrónico no ha sido confirmado.",
-    } as const;
+    if (error) {
+      // Define error messages for specific error codes
+      // Note: The error codes should be replaced with actual Supabase errors
+      const errorCodeMessages = {
+        invalid_credentials: "Las credenciales son inválidas.",
+        email_not_confirmed: "El correo electrónico no ha sido confirmado.",
+      } as const;
 
-    const message =
-      getSupabaseErrorMessage(error, errorCodeMessages) ||
-      "Ocurrió un error al iniciar sesión.";
-    return { success: false, error: message };
+      const message =
+        getSupabaseErrorMessage(error, errorCodeMessages) ||
+        "Ocurrió un error al iniciar sesión.";
+      return { success: false, error: message };
+    }
+
+    return redirect(data.url);
+  } catch (error) {
+    return { success: false, error: (error as Error).message };
   }
-
-  return redirect(data.url);
 };
 
 /**
@@ -148,34 +160,38 @@ export const signInWithOAuth = async (provider: "google" | "github") => {
  * returns a success message.
  */
 export const resetPassword = async (email: string) => {
-  const supabase = await createClient();
-  const origin = (await headers()).get("origin");
+  try {
+    const supabase = await createClient();
+    const origin = (await headers()).get("origin");
 
-  if (!email) {
-    return {
-      success: false,
-      error: "Por favor ingrese su correo electrónico.",
-    };
+    if (!email) {
+      return {
+        success: false,
+        error: "Por favor ingrese su correo electrónico.",
+      };
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${origin}/password/reset`,
+    });
+
+    if (error) {
+      // Define error messages for specific error codes
+      // Note: The error codes should be replaced with actual Supabase errors
+      const errorCodeMessages = {
+        invalid_email: "El correo electrónico es inválido.",
+      } as const;
+
+      const message =
+        getSupabaseErrorMessage(error, errorCodeMessages) ||
+        "Ocurrió un error al enviar el correo electrónico.";
+      return { success: false, error: message };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: (error as Error).message };
   }
-
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/password/reset`,
-  });
-
-  if (error) {
-    // Define error messages for specific error codes
-    // Note: The error codes should be replaced with actual Supabase errors
-    const errorCodeMessages = {
-      invalid_email: "El correo electrónico es inválido.",
-    } as const;
-
-    const message =
-      getSupabaseErrorMessage(error, errorCodeMessages) ||
-      "Ocurrió un error al enviar el correo electrónico.";
-    return { success: false, error: message };
-  }
-
-  return { success: true };
 };
 
 /**
@@ -190,35 +206,39 @@ export const updatePassword = async (
   password: string,
   confirmPassword: string
 ) => {
-  const supabase = await createClient();
+  try {
+    const supabase = await createClient();
 
-  if (!password && !confirmPassword) {
-    return {
-      success: false,
-      error: "Por favor completa todos los campos requeridos.",
-    };
+    if (!password && !confirmPassword) {
+      return {
+        success: false,
+        error: "Por favor completa todos los campos requeridos.",
+      };
+    }
+    if (password !== confirmPassword) {
+      return {
+        success: false,
+        error: "Las contraseñas no coinciden.",
+      };
+    }
+
+    const { error } = await supabase.auth.updateUser({ password });
+
+    if (error) {
+      // Define error messages for specific error codes
+      // Note: The error codes should be replaced with actual Supabase errors
+      const errorCodeMessages = {
+        weak_password: "La contraseña es muy débil.",
+      } as const;
+
+      const message =
+        getSupabaseErrorMessage(error, errorCodeMessages) ||
+        "Ocurrió un error al actualizar la contraseña.";
+      return { success: false, error: message };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: (error as Error).message };
   }
-  if (password !== confirmPassword) {
-    return {
-      success: false,
-      error: "Las contraseñas no coinciden.",
-    };
-  }
-
-  const { error } = await supabase.auth.updateUser({ password });
-
-  if (error) {
-    // Define error messages for specific error codes
-    // Note: The error codes should be replaced with actual Supabase errors
-    const errorCodeMessages = {
-      weak_password: "La contraseña es muy débil.",
-    } as const;
-
-    const message =
-      getSupabaseErrorMessage(error, errorCodeMessages) ||
-      "Ocurrió un error al actualizar la contraseña.";
-    return { success: false, error: message };
-  }
-
-  return { success: true };
 };
