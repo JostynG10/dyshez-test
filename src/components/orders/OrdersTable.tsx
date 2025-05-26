@@ -54,22 +54,22 @@ export default function OrdersTable({
           </th>
           <th className={`${styles.tableHead} ${styles.tableHeadExpanded}`}>
             <span className={styles.tableTitle}>
-              Cliente <SortButton column="customers.first_name" />
+              Cliente <SortButton column="customer" />
             </span>
           </th>
           <th className={styles.tableHead}>
             <span className={styles.tableTitle}>
-              Fecha <SortButton column="created_at" />
+              Fecha <SortButton column="date" />
             </span>
           </th>
           <th className={styles.tableHead}>
             <span className={styles.tableTitle}>
-              Hora <SortButton column="created_at" />
+              Hora <SortButton column="hour" />
             </span>
           </th>
           <th className={styles.tableHead}>
             <span className={styles.tableTitle}>
-              Modo <SortButton column="delivery_method.name" />
+              Modo <SortButton column="delivery_method" />
             </span>
           </th>
           <th className={styles.tableHead}>
@@ -79,12 +79,12 @@ export default function OrdersTable({
           </th>
           <th className={`${styles.tableHead} ${styles.tableHeadExpanded}`}>
             <span className={styles.tableTitle}>
-              Método de pago <SortButton column="payment_method.name" />
+              Método de pago <SortButton column="payment_method" />
             </span>
           </th>
           <th className={styles.tableHead}>
             <span className={styles.tableTitle}>
-              Estado <SortButton column="order_status.name" />
+              Estado <SortButton column="order_status" />
             </span>
           </th>
         </tr>

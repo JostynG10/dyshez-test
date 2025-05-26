@@ -27,24 +27,22 @@ const getParams = (
   const page = searchParams.get("page");
   const status = searchParams.get("status");
 
-  const fetchParams: GetOrdersProps = {};
-  if (sortBy) {
-    fetchParams.order = {
-      orderBy: sortBy.orderBy,
-      order: sortBy.order,
-    };
-  }
-  if (status && ["all", "accepted", "rejected"].includes(status)) {
-    fetchParams.filter = status as "all" | "accepted" | "rejected";
-  }
-  if (page) {
-    fetchParams.page = Number(page);
-  }
-  if (pageSize) {
-    fetchParams.pageSize = pageSize;
-  }
+  const validStatuses = ["all", "accepted", "rejected"] as const;
+  type StatusType = (typeof validStatuses)[number];
 
-  return fetchParams;
+  const statusValue: StatusType =
+    status && validStatuses.includes(status as StatusType)
+      ? (status as StatusType)
+      : "all";
+
+  const parameters = {
+    sortBy,
+    pageSize,
+    page: Number(page) || 1,
+    status: statusValue,
+  };
+
+  return parameters;
 };
 
 /**
@@ -113,38 +111,37 @@ export default function OrdersResult({
           <tr key={index} className={styles.tableBodyRow}>
             <td className={styles.tableData}>#{order.id}</td>
             <td className={`${styles.tableData} ${styles.tableDataExpanded}`}>
-              {order.customer.first_name} {order.customer.last_name}
+              {order.customer}
             </td>
             <td className={styles.tableData}>
-              {new Date(order.created_at).toLocaleDateString("es-ES")}
+              {new Date(order.date).toLocaleDateString("es-ES")}
             </td>
             <td className={styles.tableData}>
-              {new Date(order.created_at).toLocaleTimeString("es-ES", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true,
-              })}
+              {new Date(`1970-01-01T${order.hour}Z`).toLocaleTimeString(
+                "es-ES",
+                {
+                  hour: "numeric",
+                  minute: "2-digit",
+                  hour12: true,
+                }
+              )}
             </td>
             <td className={styles.tableData}>
-              {order.delivery_method.name === "delivery"
-                ? "Entrega"
-                : "Recogida"}
+              {order.delivery_method === "delivery" ? "Entrega" : "Recogida"}
             </td>
             <td className={styles.tableData}>{order.total_price}</td>
             <td className={`${styles.tableData} ${styles.tableDataExpanded}`}>
-              {order.payment_method.name}
+              {order.payment_method}
             </td>
             <td className={styles.tableData}>
               <span
                 className={`${styles.status} ${
-                  order.order_status.name === "accepted"
+                  order.order_status === "accepted"
                     ? styles.accepted
                     : styles.rejected
                 }`}
               >
-                {order.order_status.name === "accepted"
-                  ? "Aceptada"
-                  : "Rechazada"}
+                {order.order_status === "accepted" ? "Aceptada" : "Rechazada"}
               </span>
             </td>
           </tr>
