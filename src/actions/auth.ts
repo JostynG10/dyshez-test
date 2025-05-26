@@ -3,7 +3,6 @@
 import { createClient } from "@utils/supabase/server";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { getSupabaseErrorMessage } from "@utils/utils";
 import type SignUpFormData from "@interfaces/SignUpFormData";
 import type SignInFormData from "@interfaces/SignInFormData";
 
