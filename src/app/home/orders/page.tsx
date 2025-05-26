@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import OrdersFilters from "@components/OrdersFilters";
-import FiltersLoader from "@components/FiltersLoader";
-import OrdersList from "@components/OrdersList";
-import styles from "@styles/OrdersPage.module.css";
+import OrdersFilters from "@components/orders/OrdersFilters";
+import FiltersLoader from "@components/orders/FiltersLoader";
+import OrdersList from "@components/orders/OrdersList";
+import styles from "@styles/orders/OrdersPage.module.css";
 
 /**
  * Orders component renders the orders page.

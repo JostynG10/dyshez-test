@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { FaRegSquare, FaSquareCheck } from "react-icons/fa6";
 import type CheckboxProps from "@interfaces/CheckboxProps";
-import styles from "@styles/Checkbox.module.css";
+import styles from "@styles/common/Checkbox.module.css";
 
 // Custom Checkbox component using forwardRef to support React Hook Form
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(

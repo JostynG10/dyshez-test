@@ -2,7 +2,7 @@ import React from "react";
 import { LuArrowUpDown } from "react-icons/lu";
 import { IoIosArrowRoundDown, IoIosArrowRoundUp } from "react-icons/io";
 import type SortBy from "@interfaces/SortBy";
-import styles from "@styles/OrdersTable.module.css";
+import styles from "@styles/orders/OrdersTable.module.css";
 
 /**
  * OrdersTable component is responsible for rendering the table header and

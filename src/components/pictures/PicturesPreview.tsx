@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { usePicturesContext } from "@context/PicturesContext";
 import Image from "next/image";
-import styles from "@styles/PicturesPreview.module.css";
+import styles from "@styles/pictures/PicturesPreview.module.css";
 
 /**
  * PicturesPreview component displays previews of the selected picture

@@ -2,8 +2,8 @@
 
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
-import styles from "@styles/UploadPictures.module.css";
 import { useUploadPicture } from "@hooks/useUploadPicture";
+import styles from "@styles/pictures/UploadPictures.module.css";
 
 /**
  * UploadPictures component allows users to upload multiple images.

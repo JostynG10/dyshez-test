@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "@styles/PicturesPage.module.css";
-import UserPictures from "@components/UserPictures";
-import PicturesPreview from "@components/PicturesPreview";
-import { PicturesProvider } from "@/context/PicturesContext";
+import { PicturesProvider } from "@context/PicturesContext";
+import UserPictures from "@components/pictures/UserPictures";
+import PicturesPreview from "@components/pictures/PicturesPreview";
+import styles from "@styles/pictures/PicturesPage.module.css";
 
 /**
  * PicturesPage represents the page for managing user pictures.

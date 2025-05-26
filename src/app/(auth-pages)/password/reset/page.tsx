@@ -3,8 +3,8 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { useResetPassword } from "@hooks/useResetPassword";
-import InputField from "@components/InputField";
-import styles from "@styles/ResetPassword.module.css";
+import InputField from "@components/common/InputField";
+import styles from "@styles/auth/ResetPassword.module.css";
 
 export default function ResetPassword() {
   const {

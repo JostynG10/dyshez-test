@@ -1,12 +1,12 @@
 "use client";
 
 import React, { Suspense, useEffect, useRef, useState } from "react";
-import OrdersTable from "@components/OrdersTable";
-import ResultLoader from "@components/ResultLoader";
-import OrdersResult from "@components/OrdersResult";
-import PaginationLoader from "@components/PaginationLoader";
-import OrdersPagination from "@components/OrdersPagination";
-import styles from "@styles/OrdersList.module.css";
+import OrdersTable from "@components/orders/OrdersTable";
+import ResultLoader from "@components/orders/ResultLoader";
+import OrdersResult from "@components/orders/OrdersResult";
+import PaginationLoader from "@components/orders/PaginationLoader";
+import OrdersPagination from "@components/orders/OrdersPagination";
+import styles from "@styles/orders/OrdersList.module.css";
 
 /**
  * OrdersList component is responsible for rendering the list of orders

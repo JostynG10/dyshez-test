@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { useGetPages } from "@hooks/useGetPages";
-import styles from "@styles/OrdersPagination.module.css";
-import PaginationLoader from "./PaginationLoader";
+import PaginationLoader from "@components/orders/PaginationLoader";
+import styles from "@styles/orders/OrdersPagination.module.css";
 
 /**
  * OrdersPagination component is responsible for rendering the pagination
@@ -20,7 +20,6 @@ export default function OrdersPagination({
   const { pages, loading, error, fetchPages } = useGetPages();
   const [previousStatus, setPreviousStatus] = useState<string | null>("");
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   /**
    * Get the "page" and "status" query parameters to determine the current page
@@ -29,19 +28,6 @@ export default function OrdersPagination({
    */
   const currentPage = searchParams.get("page");
   const status = searchParams.get("status");
-
-  /**
-   * If the current page is not set, set it to 1. This will trigger a re-render
-   * of the component with the new page.
-   */
-  useEffect(() => {
-    if (!currentPage) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("page", "1");
-      router.replace(`?${params.toString()}`);
-    }
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     if (
