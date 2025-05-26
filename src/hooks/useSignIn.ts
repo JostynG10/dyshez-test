@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { signIn } from "@actions/auth";
+import { useRouter } from "next/navigation";
 import type { FieldErrors } from "react-hook-form";
 import type SignInFormData from "@interfaces/SignInFormData";
 
@@ -9,6 +10,7 @@ import type SignInFormData from "@interfaces/SignInFormData";
  * Encapsulates validation, submission, and error handling logic.
  */
 export function useSignIn() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,7 +23,7 @@ export function useSignIn() {
    */
   const onSubmit = async (data: SignInFormData) => {
     const toastId = toast.loading("Loading...");
-    const { error } = await signIn(data);
+    const { success, error } = await signIn(data);
 
     if (error) {
       toast.update(toastId, {
@@ -31,8 +33,16 @@ export function useSignIn() {
         autoClose: 5000,
       });
     }
+    if (success) {
+      toast.update(toastId, {
+        render: "Inicio de sesión exitoso",
+        type: "success",
+        isLoading: false,
+        autoClose: 5000,
+      });
+      router.push("/home");
+    }
   };
-
   /**
    * Function executed if there are validation errors in the form.
    * Shows the first error message found.

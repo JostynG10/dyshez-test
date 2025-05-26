@@ -106,7 +106,7 @@ export const signIn = async (formData: SignInFormData) => {
       return { success: false, error: message };
     }
 
-    return redirect("home");
+    return { success: true, error: null };
   } catch (error) {
     return { success: false, error: (error as Error).message };
   }
