@@ -2,6 +2,15 @@
 
 This project was developed as a technical test for the company [Dyshez](https://dyshez.com/), using [Next.js](https://nextjs.org). It is designed for managing user orders and images, featuring authentication and cloud storage with Supabase.
 
+## Demo Test User
+
+You can test the application using the following credentials:
+
+- **Email:** supabasetest10@gmail.com  
+- **Password:** 123456789
+
+> **Note:** This user already has information stored in the Supabase service, so you can view orders and images without needing to register or upload new data.
+
 ## Features
 
 - **User authentication** (registration, login, password recovery and reset)
