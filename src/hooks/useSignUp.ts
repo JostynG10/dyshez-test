@@ -43,7 +43,7 @@ export function useSignUp() {
     if (success) {
       toast.update(toastId, {
         render:
-          "Registration successful, check your email to verify your account.",
+          "Registro exitoso, revisa tu correo para verificar tu cuenta.",
         type: "success",
         isLoading: false,
         autoClose: 5000,
