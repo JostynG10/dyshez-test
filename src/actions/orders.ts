@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@utils/supabase/server";
+import { getSupabaseErrorMessage } from "@utils/utils";
 import type GetOrdersProps from "@interfaces/GetOrdersProps";
 import type Orders from "@interfaces/Orders";
 
@@ -27,11 +28,19 @@ export async function getOrders(data: GetOrdersProps) {
     );
 
     if (error) {
-      return { orders: [], error: error.message };
+      // Define error messages for specific error codes
+      // Note: The error codes should be replaced with actual Supabase errors
+      const errorCodeMessages = {} as const;
+
+      const message =
+        getSupabaseErrorMessage(error, errorCodeMessages) ||
+        "Ocurrió un error al obtener las ordenes.";
+      return { orders: [], error: message };
     }
     return { orders: orders as Orders[], error: null };
   } catch (error) {
-    return { orders: [], error: (error as Error).message };
+    console.error("Error fetching orders:", error);
+    return { orders: [], error: "Ocurrió un error al obtener las ordenes." };
   }
 }
 
@@ -56,10 +65,21 @@ export async function getOrdersCount(
     const { count, error } = await query;
 
     if (error) {
-      return { count: 0, error: error.message };
+      // Define error messages for specific error codes
+      // Note: The error codes should be replaced with actual Supabase errors
+      const errorCodeMessages = {} as const;
+
+      const message =
+        getSupabaseErrorMessage(error, errorCodeMessages) ||
+        "Ocurrió un error al obtener el total de ordenes.";
+      return { count: 0, error: message };
     }
     return { count, error: null };
   } catch (error) {
-    return { count: 0, error: (error as Error).message };
+    console.error("Error fetching orders count:", error);
+    return {
+      count: 0,
+      error: "Ocurrió un error al obtener el total de ordenes.",
+    };
   }
 }
