@@ -6,7 +6,7 @@ import styles from "@styles/common/HomeLayout.module.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <section className={styles.HomeLayout}>
+    <section className={styles.homeLayout}>
       <aside className={styles.sidebar}>
         <div className={styles.content}>
           <Image

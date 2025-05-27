@@ -70,3 +70,15 @@
   color: var(--gray-600);
   cursor: pointer;
 }
+
+@media (max-width: 29rem) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 25rem) {
+  .container {
+    padding: 2.5rem 1.5rem 1.5rem;
+  }
+}

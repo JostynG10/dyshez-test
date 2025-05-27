@@ -11,3 +11,9 @@
   transform: rotate(-45deg);
   color: var(--gray-500);
 }
+
+@media (max-width: 50rem) {
+  .logoutButton {
+    padding: 0 0.625rem;
+  }
+}

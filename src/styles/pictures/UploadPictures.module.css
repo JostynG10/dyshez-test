@@ -23,3 +23,16 @@
   height: 0.75rem;
   color: #808080;
 }
+
+@media (max-width: 34rem) {
+  .container {
+    width: 100%;
+    height: auto;
+  }
+
+  .button {
+    width: calc(100% - 6px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}

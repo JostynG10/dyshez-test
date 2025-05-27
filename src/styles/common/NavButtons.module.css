@@ -31,3 +31,21 @@
 .iconSelected {
   color: var(--pink-700);
 }
+
+@media (max-width: 50rem) {
+  .buttonsBox {
+    flex-direction: row;
+  }
+
+  .button {
+    padding: 0 0.625rem;
+  }
+
+  .selectedLine {
+    width: auto;
+    height: 6px;
+    right: 0;
+    bottom: auto;
+    border-radius: 0 0 0.8rem 0.8rem;
+  }
+}

@@ -85,7 +85,9 @@ export default function UserPictures() {
   }, [pictures, selectedUrl]);
 
   return (
-    <section className={styles.container}>
+    <section
+      className={`${styles.container} ${loading ? styles.withoutScroll : ""}`}
+    >
       <UploadPictures onUploadComplete={fetchPictures} />
 
       {loading ? <PicturesLoader /> : memorizedPictures}

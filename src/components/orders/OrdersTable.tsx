@@ -52,27 +52,27 @@ export default function OrdersTable({
               ID de orden <SortButton column="id" />
             </span>
           </th>
-          <th className={`${styles.tableHead} ${styles.tableHeadExpanded}`}>
+          <th className={`${styles.tableHead} ${styles.tableHeadExpanded} ${styles.tableHeadName}`}>
             <span className={styles.tableTitle}>
               Cliente <SortButton column="customer" />
             </span>
           </th>
-          <th className={styles.tableHead}>
+          <th className={`${styles.tableHead} ${styles.tableHeadCompact}`}>
             <span className={styles.tableTitle}>
               Fecha <SortButton column="date" />
             </span>
           </th>
-          <th className={styles.tableHead}>
+          <th className={`${styles.tableHead} ${styles.tableHeadCompact}`}>
             <span className={styles.tableTitle}>
               Hora <SortButton column="hour" />
             </span>
           </th>
-          <th className={styles.tableHead}>
+          <th className={`${styles.tableHead} ${styles.tableHeadCompact}`}>
             <span className={styles.tableTitle}>
               Modo <SortButton column="delivery_method" />
             </span>
           </th>
-          <th className={styles.tableHead}>
+          <th className={`${styles.tableHead} ${styles.tableHeadCompact}`}>
             <span className={styles.tableTitle}>
               Total <SortButton column="total_price" />
             </span>

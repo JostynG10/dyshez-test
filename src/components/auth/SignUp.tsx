@@ -28,97 +28,100 @@ export default function SignUp() {
         los siguientes datos y se parte del movimiento de Dyshez.
       </p>
 
-      <div className={styles.row}>
-        <InputField
-          required
-          type="text"
-          icon="user"
-          placeholder="Nombre(s)"
-          {...register("firstName", {
-            required: "Por favor completa todos los campos requeridos.",
-          })}
-          hasError={!!errors.firstName}
-        />
-        <InputField
-          required
-          type="text"
-          icon="user"
-          placeholder="Apellidos"
-          {...register("lastName", {
-            required: "Por favor completa todos los campos requeridos.",
-          })}
-          hasError={!!errors.lastName}
-        />
-      </div>
+      <div className={styles.inputsBox}>
+        <div className={styles.row}>
+          <InputField
+            required
+            type="text"
+            icon="user"
+            placeholder="Nombre(s)"
+            {...register("firstName", {
+              required: "Por favor completa todos los campos requeridos.",
+            })}
+            hasError={!!errors.firstName}
+          />
+          <InputField
+            required
+            type="text"
+            icon="user"
+            placeholder="Apellidos"
+            {...register("lastName", {
+              required: "Por favor completa todos los campos requeridos.",
+            })}
+            hasError={!!errors.lastName}
+          />
+        </div>
 
-      <div className={styles.row}>
-        <InputField
-          required
-          type="phone"
-          icon="mobile"
-          placeholder="123 456 7890"
-          {...register("phone", {
-            required: "Por favor completa todos los campos requeridos.",
-          })}
-          hasError={!!errors.phone}
-        />
-        <InputField
-          type="phone"
-          icon="phone"
-          placeholder="123 456 7890"
-          {...register("secondaryPhone")}
-        />
-      </div>
+        <div className={styles.row}>
+          <InputField
+            required
+            type="phone"
+            icon="mobile"
+            placeholder="123 456 7890"
+            {...register("phone", {
+              required: "Por favor completa todos los campos requeridos.",
+            })}
+            hasError={!!errors.phone}
+          />
+          <InputField
+            type="phone"
+            icon="phone"
+            placeholder="123 456 7890"
+            {...register("secondaryPhone")}
+          />
+        </div>
 
-      <div className={styles.row}>
-        <InputField
-          type="text"
-          icon="website"
-          placeholder="Sitio web"
-          {...register("website")}
-        />
-        <InputField
-          required
-          type="text"
-          icon="email"
-          placeholder="Email"
-          {...register("email", {
-            required: "Por favor completa todos los campos requeridos.",
-            // Validate that email is in the correct format
-            pattern: {
-              value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-              message: "El correo es inválido.",
-            },
-          })}
-          hasError={!!errors.email}
-        />
-      </div>
+        <div className={styles.row}>
+          <InputField
+            type="text"
+            icon="website"
+            placeholder="Sitio web"
+            {...register("website")}
+          />
+          <InputField
+            required
+            type="text"
+            icon="email"
+            placeholder="Email"
+            {...register("email", {
+              required: "Por favor completa todos los campos requeridos.",
+              // Validate that email is in the correct format
+              pattern: {
+                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                message: "El correo es inválido.",
+              },
+            })}
+            hasError={!!errors.email}
+          />
+        </div>
 
-      <div className={styles.row}>
-        <InputField
-          required
-          type="password"
-          placeholder="Contraseña"
-          {...register("password", {
-            required: "Por favor completa todos los campos requeridos.",
-            // Validate that password matches confirmPassword
-            validate: (value) =>
-              value === confirmPasswordValue || "Las contraseñas no coinciden.",
-          })}
-          hasError={!!errors.password}
-        />
-        <InputField
-          required
-          type="password"
-          placeholder="Verifica contraseña"
-          {...register("confirmPassword", {
-            required: "Por favor completa todos los campos requeridos.",
-            // Validate that confirmPassword matches password
-            validate: (value) =>
-              value === passwordValue || "Las contraseñas no coinciden.",
-          })}
-          hasError={!!errors.confirmPassword}
-        />
+        <div className={styles.row}>
+          <InputField
+            required
+            type="password"
+            placeholder="Contraseña"
+            {...register("password", {
+              required: "Por favor completa todos los campos requeridos.",
+              // Validate that password matches confirmPassword
+              validate: (value) =>
+                value === confirmPasswordValue ||
+                "Las contraseñas no coinciden.",
+            })}
+            hasError={!!errors.password}
+          />
+          <InputField
+            required
+            type="password"
+            placeholder="Verifica contraseña"
+            {...register("confirmPassword", {
+              required: "Por favor completa todos los campos requeridos.",
+              // Validate that confirmPassword matches password
+              validate: (value) =>
+                value === passwordValue || "Las contraseñas no coinciden.",
+            })}
+            hasError={!!errors.confirmPassword}
+          />
+        </div>
       </div>
 
       {/* The Checkbox component needs the Controller component to be able to handle

@@ -1,6 +1,8 @@
 .container {
+  width: 100%;
   display: flex;
   gap: 0.625rem;
+  overflow: auto;
 }
 
 .button {
@@ -15,6 +17,7 @@
   font-weight: 700;
   line-height: 1rem;
   color: var(--gray-600);
+  text-wrap: nowrap;
   cursor: pointer;
 }
 

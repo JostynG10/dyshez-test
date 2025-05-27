@@ -20,7 +20,7 @@
 }
 
 .contentLogin {
-  right: 520px;
+  right: calc(100% - 400px);
 }
 
 .contentRegister {
@@ -76,6 +76,7 @@
 }
 
 .wrapper {
+  height: 39.5rem;
   position: relative;
   flex-grow: 1;
   display: flex;
@@ -88,4 +89,20 @@
 
 .wrapperRegister {
   left: -400px;
+}
+
+@media (max-width: 29rem) {
+  .content {
+    right: 0;
+  }
+
+  .wrapperRegister {
+    left: -100%;
+  }
+}
+
+@media (max-width: 25rem) {
+  .header {
+    padding: 1.5rem 1.5rem 0;
+  }
 }

@@ -53,3 +53,17 @@
   height: 1.1875rem;
   color: var(--gray-500);
 }
+
+@media (max-width: 90rem) {
+  .tableHeadExpanded {
+    width: 200px;
+  }
+
+  .tableHeadCompact{
+    width: 100px;
+  }
+
+  .tableHeadName{
+    width: 150px;
+  }
+}
