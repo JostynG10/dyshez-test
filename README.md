@@ -4,7 +4,10 @@ This project was developed as a technical test for the company [Dyshez](https://
 
 ## Demo Test User
 
-You can test the application using the following credentials:
+You can test the application at the following link:  
+👉 [https://dyshez-test.vercel.app/](https://dyshez-test.vercel.app/)
+
+Use the following credentials to log in:
 
 - **Email:** supabasetest10@gmail.com  
 - **Password:** 123456789
