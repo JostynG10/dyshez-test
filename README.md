@@ -24,6 +24,7 @@ Use the following credentials to log in:
 - **Notifications** with [react-toastify](https://fkhadra.github.io/react-toastify/)
 - **Support for social login** (Google and GitHub)
 - **Route protection** via middleware
+- **Supabase** for authentication, database, functions and storage
 
 ## Project Structure
 
@@ -112,6 +113,73 @@ Access the application from [https://localhost:3000](https://localhost:3000) (yo
 
 Check the `docker-compose.yml` and `nginx/default.conf` files for more configuration details.
 
+## Subapase setup
+
+This project uses [Supabase](https://supabase.com/) as a complete backend: authentication, database, functions and storage. Here is how to set up a Supabase environment from scratch for use with this project.
+
+### 1. Create Supabase Project
+
+1. Go to https://supabase.com/ and create an account.
+2. Crea un nuevo proyecto.
+3. Copy the Project URL and anon/public API key, and place them in your .env file as NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+### 2. Authentication
+
+#### OAuth Providers
+
+Enable the following providers in the Authentication > Providers section:
+- **Google**
+- **Github**
+
+Follow the documentation to enable the auth providers in [Supabase social login guide](https://supabase.com/docs/guides/auth/social-login)
+
+### 3. Database and Security
+
+The database structure, relationships, RLS policies, functions and triggers can be created automatically by executing the following SQL script: `setup.sql`
+
+#### What does this script include?
+
+- Creation of tables `(profiles, customer, orders, etc.)`.
+- Relationship with users `(auth.users)`.
+- RLS policies to protect data per user.
+- Functions and triggers necessary for the correct operation of the system.
+
+#### How to execute it?
+- Go to your Supabase project.
+- In the side panel, select SQL Editor.
+- Create a new query and paste the contents of `setup.sql`.
+- Run the script.
+
+> **Note:** This will automatically configure the entire database without the need for additional manual steps for tables, policies or functions.
+
+### 4. Picture storage
+
+1. In **Storage** > **Buckets**, create a bucket named `pictures`.
+2. Disable public access.
+3. Set the type of files allowed with `image/jpg, image/png` and save.
+4. In **Storage** > **Policies** add a new policy to the `pictures` bucket:
+    - Click **Get started quickly**.
+    - Select template **Give users access to only their own top level folder named as uid**.
+    - Allows operation for **SELECT**, **INSERT** and **DELETE**.
+5. Configure your `next.config.mjs` file to allow images coming from supabase:
+
+   ```mjs
+   const nextConfig = {
+     images: {
+       remotePatterns: [
+         {
+           protocol: "https",
+           hostname: "YOUR_SUPABASE_HOSTNAME",
+         },
+       ],
+     },
+   };
+   ```
+
+This ensures each user can only manage their own images within the application.
+
+> **Note:** Adds information from the `orders` table to be displayed in the application.
+
 ## Contributing and Adding New Content
 
 If you want to add new features, fix bugs, or improve the project, follow these recommended steps to contribute in an organized way:
@@ -161,6 +229,7 @@ Thank you for contributing! If you have questions, check the [GitHub collaborati
 - [React Toastify](https://fkhadra.github.io/react-toastify/)
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [React Hook Form](https://react-hook-form.com/)
+- [Supabase](https://supabase.com/)
 
 ---
 
