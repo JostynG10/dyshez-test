@@ -43,6 +43,7 @@
 }
 
 .input {
+  width: 100%;
   flex-grow: 1;
   font-family: var(--font-hauora);
   font-size: 0.875rem;

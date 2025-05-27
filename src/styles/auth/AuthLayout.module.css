@@ -1,13 +1,25 @@
 .container {
   width: 100dvw;
   height: 100dvh;
-  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 87rem;
+  height: 100%;
+  max-height: 50.5rem;
+  padding: 3rem;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .welcome {
-  position: fixed;
-  top: calc(calc(100dvh - 670px) / 2);
-  left: calc(calc(100dvw - 1248px) / 2);
+  margin-top: 1.3125rem;
   display: flex;
   flex-direction: column;
   gap: 1.678125rem;
@@ -23,11 +35,44 @@
 
 .content {
   width: 920px;
-  position: fixed;
-  top: calc(calc(100dvh - 712px) / 2);
-  bottom: calc(calc(100dvh - 712px) / 2);
-  left: calc(calc(100dvw - 526px) / 2);
+  height: 712px;
+  flex-shrink: 0;
   background-color: var(--white);
   box-shadow: 0px 8px 28px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+
+@media (max-width: 79.375rem) {
+  .wrapper {
+    max-width: 63.5rem;
+    max-height: 57.696875rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+
+  .welcome {
+    margin: 0;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 63.5rem) {
+  .content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 48rem) {
+  .wrapper {
+    max-height: 55.696875rem;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 25rem) {
+  .wrapper {
+    max-height: 53.696875rem;
+    padding: 1rem;
+  }
 }

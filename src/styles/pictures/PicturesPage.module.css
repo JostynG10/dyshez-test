@@ -24,5 +24,15 @@
   flex-grow: 1;
   display: flex;
   gap: 2rem;
-  overflow: auto;
+  overflow: hidden;
+}
+
+@media (max-width: 50rem) {
+  .container {
+    padding: 1.25rem 0 0 1.25rem;
+  }
+
+  .content {
+    gap: 1rem;
+  }
 }

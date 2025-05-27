@@ -47,4 +47,20 @@
   font-weight: 600;
   line-height: 1.75rem;
   color: var(--gray-900);
+  text-wrap: nowrap;
+  text-align: start;
+}
+
+@media (max-width: 50rem) {
+  .container {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 39.6875rem) {
+  .contentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
