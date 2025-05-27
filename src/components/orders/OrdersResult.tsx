@@ -59,17 +59,21 @@ export default function OrdersResult({
   const { orders, loading, fetchOrders } = useGetOrders();
   const searchParams = useSearchParams();
 
+  /**
+   * Get the "status" and "page" query parameters to determine the current
+   * status of the orders and the current page. These values change every time
+   * the user clicks on the pagination buttons or changes the status filter.
+   */
+  const status = searchParams.get("status");
+  const page = searchParams.get("page");
+
   useEffect(() => {
-    if (
-      searchParams.get("status") &&
-      searchParams.get("page") &&
-      numberOfOrders
-    ) {
+    if (status && page && numberOfOrders) {
       const params = getParams(searchParams, sortBy, numberOfOrders);
       fetchOrders(params);
     }
     // eslint-disable-next-line
-  }, [searchParams, sortBy, numberOfOrders]);
+  }, [status, page, sortBy, numberOfOrders]);
 
   const handleSort = (orderBy: string) => {
     if (sortBy?.orderBy === orderBy) {
