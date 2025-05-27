@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@utils/supabase/server";
-import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getSupabaseErrorMessage } from "@utils/utils";
 import type SignUpFormData from "@interfaces/SignUpFormData";
@@ -65,7 +64,8 @@ export const signUp = async (formData: SignUpFormData) => {
 
     return { success: true };
   } catch (error) {
-    return { success: false, error: (error as Error).message };
+    console.error("Error during sign up:", error);
+    return { success: false, error: "Ocurrió un error al registrarse." };
   }
 };
 
@@ -110,7 +110,8 @@ export const signIn = async (formData: SignInFormData) => {
 
     return { success: true, error: null };
   } catch (error) {
-    return { success: false, error: (error as Error).message };
+    console.error("Error during sign in:", error);
+    return { success: false, error: "Ocurrió un error al iniciar sesión." };
   }
 };
 
@@ -148,9 +149,11 @@ export const signInWithOAuth = async (provider: "google" | "github") => {
       return { success: false, error: message };
     }
 
-    return redirect(data.url);
+    // return redirect(data.url);
+    return { success: true, redirectUrl: data.url, error: null };
   } catch (error) {
-    return { success: false, error: (error as Error).message };
+    console.error("Error during OAuth sign in:", error);
+    return { success: false, error: "Ocurrió un error al iniciar sesión." };
   }
 };
 
@@ -192,7 +195,11 @@ export const resetPassword = async (email: string) => {
 
     return { success: true };
   } catch (error) {
-    return { success: false, error: (error as Error).message };
+    console.error("Error during password reset:", error);
+    return {
+      success: false,
+      error: "Ocurrió un error al enviar el correo electrónico.",
+    };
   }
 };
 
@@ -241,6 +248,10 @@ export const updatePassword = async (
 
     return { success: true };
   } catch (error) {
-    return { success: false, error: (error as Error).message };
+    console.error("Error during password update:", error);
+    return {
+      success: false,
+      error: "Ocurrió un error al actualizar la contraseña.",
+    };
   }
 };

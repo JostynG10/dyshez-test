@@ -34,7 +34,8 @@ export async function getPictures() {
 
     return { success: urls, error: null };
   } catch (error) {
-    return { success: [], error: (error as Error).message };
+    console.error("Error fetching pictures:", error);
+    return { success: [], error: "Ocurrió un error al obtener las imágenes." };
   }
 }
 
@@ -61,6 +62,7 @@ export async function deletePicture(fileName: string) {
 
     return { success: true, error: null };
   } catch (error) {
-    return { success: false, error: (error as Error).message };
+    console.error("Error deleting picture:", error);
+    return { success: false, error: "Ocurrió un error al eliminar la imagen." };
   }
 }

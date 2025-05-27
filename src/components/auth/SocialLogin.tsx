@@ -30,7 +30,7 @@ export default function SocialLogin() {
    */
   const handleSignInWidthGoogle = async (provider: "google" | "github") => {
     const toastId = toast.loading("Loading...");
-    const { error } = await signInWithOAuth(provider);
+    const { success, redirectUrl, error } = await signInWithOAuth(provider);
 
     if (error) {
       toast.update(toastId, {
@@ -40,6 +40,7 @@ export default function SocialLogin() {
         autoClose: 5000,
       });
     }
+    if (success) window.location.href = redirectUrl!;
   };
 
   return (

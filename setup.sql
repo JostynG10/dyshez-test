@@ -170,11 +170,11 @@ BEGIN
   )
   VALUES (
     NEW.id,
-    NEW.raw_user_meta_data ->> 'first_name',
-    NEW.raw_user_meta_data ->> 'last_name',
-    NEW.raw_user_meta_data ->> 'phone',
-    NEW.raw_user_meta_data ->> 'secondary_phone',
-    NEW.raw_user_meta_data ->> 'website'
+    COALESCE(NEW.raw_user_meta_data ->> 'first_name', '')
+    COALESCE(NEW.raw_user_meta_data ->> 'last_name', '')
+    COALESCE(NEW.raw_user_meta_data ->> 'phone', '')
+    COALESCE(NEW.raw_user_meta_data ->> 'secondary_phone', '')
+    COALESCE(NEW.raw_user_meta_data ->> 'website', '')
   );
   RETURN NEW;
 END;
