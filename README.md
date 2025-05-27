@@ -152,7 +152,12 @@ The database structure, relationships, RLS policies, functions and triggers can 
 
 > **Note:** This will automatically configure the entire database without the need for additional manual steps for tables, policies or functions.
 
-### 4. Picture storage
+### 4. Change authentication confirmation path
+
+1. In **Authentication** > **Emails**
+2. In the **Confirm signup** template, change `{{ .ConfirmationURL }}` to `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email`.
+
+### 5. Picture storage
 
 1. In **Storage** > **Buckets**, create a bucket named `pictures`.
 2. Disable public access.

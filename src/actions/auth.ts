@@ -26,6 +26,7 @@ export const signUp = async (formData: SignUpFormData) => {
       website,
     } = formData;
     const supabase = await createClient();
+    const origin = (await headers()).get("origin") || undefined;
 
     if (!email || !password) {
       return {
@@ -38,6 +39,7 @@ export const signUp = async (formData: SignUpFormData) => {
       email,
       password,
       options: {
+        emailRedirectTo: origin,
         data: {
           first_name: firstName,
           last_name: lastName,
