@@ -53,11 +53,9 @@ export default function OrdersPagination({
     return <PaginationLoader />;
   }
 
-  if (pages === 0) return <></>;
-
   return (
     <section className={styles.container}>
-      {error ? (
+      {error || pages === 0 ? (
         <>
           <FaAngleLeft className={`${styles.arrowIcon}`} />
           <button
